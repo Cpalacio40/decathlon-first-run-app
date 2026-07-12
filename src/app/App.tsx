@@ -11,6 +11,7 @@ import { PaymentSheet } from "./components/screens/PaymentSheet";
 import { AccessConfirmed } from "./components/screens/AccessConfirmed";
 import { ManualCode } from "./components/screens/ManualCode";
 import { ProfileForm } from "./components/screens/ProfileForm";
+import { Permissions } from "./components/screens/Permissions";
 
 type Screen =
   | "splash"
@@ -23,7 +24,8 @@ type Screen =
   | "scanning"
   | "payment"
   | "confirmed"
-  | "profile";
+  | "profile"
+  | "permissions";
 
 const ORDER: Screen[] = [
   "splash",
@@ -33,6 +35,7 @@ const ORDER: Screen[] = [
   "payment",
   "confirmed",
   "profile",
+  "permissions",
   "ticket",
   "manual",
   "camera",
@@ -75,7 +78,9 @@ export default function App() {
       case "confirmed":
         return <AccessConfirmed trial={trial} onStart={() => go("profile")} />;
       case "profile":
-        return <ProfileForm onContinue={() => go("ticket")} onBack={() => go("confirmed")} />;
+        return <ProfileForm onContinue={() => go("permissions")} onBack={() => go("confirmed")} />;
+      case "permissions":
+        return <Permissions onContinue={() => go("ticket")} onBack={() => go("profile")} />;
       case "ticket":
         return <TicketGuide onScan={() => go("camera")} onBack={() => go("subscription")} onManual={() => go("manual")} />;
       case "manual":
@@ -129,6 +134,7 @@ export default function App() {
     { id: "payment", label: "Pago" },
     { id: "confirmed", label: "Bienvenido" },
     { id: "profile", label: "Formulario" },
+    { id: "permissions", label: "Permisos" },
     { id: "ticket", label: "Ticket" },
     { id: "manual", label: "Código manual" },
     { id: "camera", label: "Cámara" },
