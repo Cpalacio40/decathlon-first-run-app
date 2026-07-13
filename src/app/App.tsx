@@ -37,8 +37,8 @@ const ORDER: Screen[] = [
   "payment",
   "confirmed",
   "profile",
-  "motivations",
   "permissions",
+  "motivations",
   "ticket",
   "manual",
   "camera",
@@ -81,11 +81,11 @@ export default function App() {
       case "confirmed":
         return <AccessConfirmed trial={trial} onStart={() => go("profile")} />;
       case "profile":
-        return <ProfileForm onContinue={() => go("motivations")} onBack={() => go("confirmed")} />;
-      case "motivations":
-        return <MotivationsForm onContinue={() => go("permissions")} onBack={() => go("profile")} />;
+        return <ProfileForm onContinue={() => go("permissions")} onBack={() => go("confirmed")} />;
       case "permissions":
-        return <Permissions onContinue={() => go("ticket")} onBack={() => go("motivations")} />;
+        return <Permissions onContinue={() => go("motivations")} onBack={() => go("profile")} />;
+      case "motivations":
+        return <MotivationsForm onContinue={() => go("ticket")} onBack={() => go("permissions")} />;
       case "ticket":
         return <TicketGuide onScan={() => go("camera")} onBack={() => go("subscription")} onManual={() => go("manual")} />;
       case "manual":
@@ -139,8 +139,8 @@ export default function App() {
     { id: "payment", label: "Pago" },
     { id: "confirmed", label: "Bienvenido" },
     { id: "profile", label: "Formulario" },
-    { id: "motivations", label: "Motivaciones" },
     { id: "permissions", label: "Permisos" },
+    { id: "motivations", label: "Motivaciones" },
     { id: "ticket", label: "Ticket" },
     { id: "manual", label: "Código manual" },
     { id: "camera", label: "Cámara" },
