@@ -281,8 +281,9 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
       >
         {/* Sticky header + stepper */}
         <div
-          className={`sticky top-0 z-10 bg-white px-[16px] pt-[24px] pb-[8px] transition-colors ${
-            collapsed ? "border-b border-[#f0f0f0]" : ""
+          style={{ height: collapsed ? 100 : 152 }}
+          className={`sticky top-0 z-10 bg-white px-[16px] overflow-hidden border-b transition-all duration-300 ease-in-out ${
+            collapsed ? "border-[#f0f0f0] flex items-center" : "border-transparent pt-[24px] pb-[8px]"
           }`}
         >
           <div className="flex items-center gap-[16px]">
@@ -298,7 +299,7 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
 
             {/* Compact stepper sits inline with the arrow */}
             {collapsed && (
-              <div className="flex-1 flex items-center justify-center gap-[8px] pr-[48px]">
+              <div className="flex-1 flex items-center justify-center gap-[8px] pr-[48px] animate-in fade-in duration-300">
                 <Step compact active icon={<ClipboardList size={22} />} label="Info personal" />
                 <div className="h-px w-[28px] bg-[#e0e0e0]" />
                 <Step compact active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
@@ -310,7 +311,7 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
 
           {/* Full stepper below the arrow */}
           {!collapsed && (
-            <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px]">
+            <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px] animate-in fade-in duration-300">
               <Step compact={false} active icon={<ClipboardList size={22} />} label="Info personal" />
               <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
               <Step compact={false} active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
