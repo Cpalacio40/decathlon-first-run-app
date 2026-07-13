@@ -41,7 +41,7 @@ function Step({
   compact: boolean;
 }) {
   return (
-    <div className="flex flex-col items-center gap-[8px]">
+    <div className={`flex flex-col items-center gap-[8px] shrink-0 ${compact ? "" : "w-[84px]"}`}>
       <div
         className={`flex items-center justify-center size-[44px] rounded-[10px] transition-colors ${
           completed
@@ -59,7 +59,7 @@ function Step({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className={`overflow-hidden font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${
+            className={`overflow-hidden text-center font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${
               completed || active ? "text-[#2c2c2c]" : "text-[#b3b3b3]"
             }`}
           >
