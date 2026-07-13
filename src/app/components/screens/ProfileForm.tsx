@@ -273,66 +273,57 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
 
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="iPhone 13 & 14 - 36">
-      {/* Header + stepper */}
+      {/* Scrollable form (header sticks to the top and content scrolls underneath it) */}
       <div
-        className={`shrink-0 px-[16px] pt-[24px] pb-[8px] transition-colors ${
-          collapsed ? "bg-white border-b border-[#f0f0f0]" : ""
-        }`}
+        onScroll={(e) => setCollapsed(e.currentTarget.scrollTop > 24)}
+        className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        <div className="flex items-center gap-[16px]">
-          <PressableButton onClick={onBack} className="block relative size-[32px] shrink-0">
-            <div className="absolute inset-[20.83%]">
-              <div className="absolute inset-[-7.14%]">
-                <svg className="block size-full" fill="none" viewBox="0 0 21.3333 21.3333">
-                  <path d={svgPaths.pdc7b00} stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.66667" />
-                </svg>
+        {/* Sticky header + stepper */}
+        <div
+          className={`sticky top-0 z-10 bg-white px-[16px] pt-[24px] pb-[8px] transition-colors ${
+            collapsed ? "border-b border-[#f0f0f0]" : ""
+          }`}
+        >
+          <div className="flex items-center gap-[16px]">
+            <PressableButton onClick={onBack} className="block relative size-[32px] shrink-0">
+              <div className="absolute inset-[20.83%]">
+                <div className="absolute inset-[-7.14%]">
+                  <svg className="block size-full" fill="none" viewBox="0 0 21.3333 21.3333">
+                    <path d={svgPaths.pdc7b00} stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.66667" />
+                  </svg>
+                </div>
               </div>
-            </div>
-          </PressableButton>
+            </PressableButton>
 
-          {/* Compact stepper sits inline with the arrow */}
-          {collapsed && (
-            <div className="flex-1 flex items-center justify-center gap-[8px] pr-[48px]">
-              <Step compact active icon={<ClipboardList size={22} />} label="Info personal" />
-              <div className="h-px w-[28px] bg-[#e0e0e0]" />
-              <Step compact active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
-              <div className="h-px w-[28px] bg-[#e0e0e0]" />
-              <Step compact active={false} icon={<Users size={22} />} label="Mentores" />
+            {/* Compact stepper sits inline with the arrow */}
+            {collapsed && (
+              <div className="flex-1 flex items-center justify-center gap-[8px] pr-[48px]">
+                <Step compact active icon={<ClipboardList size={22} />} label="Info personal" />
+                <div className="h-px w-[28px] bg-[#e0e0e0]" />
+                <Step compact active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
+                <div className="h-px w-[28px] bg-[#e0e0e0]" />
+                <Step compact active={false} icon={<Users size={22} />} label="Mentores" />
+              </div>
+            )}
+          </div>
+
+          {/* Full stepper below the arrow */}
+          {!collapsed && (
+            <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px]">
+              <Step compact={false} active icon={<ClipboardList size={22} />} label="Info personal" />
+              <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
+              <Step compact={false} active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
+              <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
+              <Step compact={false} active={false} icon={<Users size={22} />} label="Mentores" />
             </div>
           )}
         </div>
 
-        {/* Full stepper below the arrow */}
-        <AnimatePresence initial={false}>
-          {!collapsed && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden"
-            >
-              <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px]">
-                <Step compact={false} active icon={<ClipboardList size={22} />} label="Info personal" />
-                <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
-                <Step compact={false} active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
-                <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
-                <Step compact={false} active={false} icon={<Users size={22} />} label="Mentores" />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        <div className="px-[29px] pt-[24px] pb-[24px]">
+          <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[38px] text-[#2c2c2c] text-[32px] mb-[32px]">Cuéntanos un poco sobre ti</p>
 
-      {/* Scrollable form */}
-      <div
-        onScroll={(e) => setCollapsed(e.currentTarget.scrollTop > 24)}
-        className="flex-1 overflow-y-auto px-[29px] pt-[24px] pb-[24px] [&::-webkit-scrollbar]:hidden"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[38px] text-[#2c2c2c] text-[32px] mb-[32px]">Cuéntanos un poco sobre ti</p>
-
-        <div className="flex flex-col gap-[20px]">
+          <div className="flex flex-col gap-[20px]">
           <Field label="Nombre">
             <input value={nombre} onChange={(e) => setNombre(e.target.value)} className={inputClass} />
           </Field>
@@ -389,6 +380,7 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#8a8a8a]">
             No te preocupes, podrás modificar esta información más adelante desde tu perfil.
           </p>
+          </div>
         </div>
       </div>
 
