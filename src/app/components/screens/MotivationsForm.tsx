@@ -114,7 +114,13 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
   const [tiempo, setTiempo] = useState<string | null>(null);
   const [frecuencia, setFrecuencia] = useState<string | null>(null);
   const [salud, setSalud] = useState<string | null>(null);
+  const [saludDetalle, setSaludDetalle] = useState("");
   const [collapsed, setCollapsed] = useState(false);
+
+  const handleSaludChange = (next: string | null) => {
+    setSalud(next);
+    if (next !== "Sí") setSaludDetalle("");
+  };
 
   const valid = objetivo && experiencia && complexion && tiempo && frecuencia && salud;
 
@@ -207,7 +213,26 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
             </Question>
 
             <Question label="¿Hay algo que debamos saber sobre tu salud? (lesiones, problemas cardíacos, respiratorios, articulares, etc.)">
-              <ChipGroup options={SALUD} value={salud} onChange={setSalud} />
+              <ChipGroup options={SALUD} value={salud} onChange={handleSaludChange} />
+              <AnimatePresence initial={false}>
+                {salud === "Sí" && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <textarea
+                      value={saludDetalle}
+                      onChange={(e) => setSaludDetalle(e.target.value)}
+                      placeholder="Cuéntanos más..."
+                      rows={3}
+                      className="mt-[14px] w-full rounded-[8px] border border-[#d9d9d9] bg-white px-[16px] py-[12px] outline-none resize-none font-['Host_Grotesk:Regular',sans-serif] font-normal text-[#111] text-[14px] focus:border-[#3643ba] transition-colors"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Question>
           </div>
         </div>
