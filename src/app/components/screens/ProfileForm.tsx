@@ -225,13 +225,7 @@ function Step({ icon, label, active, compact }: { icon: React.ReactNode; label: 
     <div className="flex flex-col items-center gap-[8px]">
       <div
         className={`flex items-center justify-center size-[44px] rounded-[10px] transition-colors ${
-          compact
-            ? active
-              ? "bg-white text-[#3643ba] border-2 border-[#3643ba]"
-              : "bg-[#f5f5f5] text-[#b3b3b3]"
-            : active
-              ? "bg-[#3643ba] text-white ring-2 ring-[#3643ba]/40"
-              : "bg-[#eceef5] text-[#b3b3b3]"
+          active ? "bg-white text-[#3643ba] border-2 border-[#3643ba]" : "bg-[#f5f5f5] text-[#b3b3b3]"
         }`}
       >
         {icon}
