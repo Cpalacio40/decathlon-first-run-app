@@ -122,7 +122,8 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
     if (next !== "Sí") setSaludDetalle("");
   };
 
-  const valid = objetivo && experiencia && complexion && tiempo && frecuencia && salud;
+  const saludDetalleValid = salud !== "Sí" || saludDetalle.trim().length >= 10;
+  const valid = objetivo && experiencia && complexion && tiempo && frecuencia && salud && saludDetalleValid;
 
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Motivaciones">
@@ -230,6 +231,9 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
                       rows={3}
                       className="mt-[14px] w-full rounded-[8px] border border-[#d9d9d9] bg-white px-[16px] py-[12px] outline-none resize-none font-['Host_Grotesk:Regular',sans-serif] font-normal text-[#111] text-[14px] focus:border-[#3643ba] transition-colors"
                     />
+                    <p className="mt-[6px] font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#8a8a8a]">
+                      Mínimo 10 caracteres ({saludDetalle.trim().length}/10)
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>
