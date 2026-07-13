@@ -34,25 +34,19 @@ function ChipGroup({
   options,
   value,
   onChange,
-  multi,
 }: {
   options: string[];
-  value: string[];
-  onChange: (next: string[]) => void;
-  multi?: boolean;
+  value: string | null;
+  onChange: (next: string | null) => void;
 }) {
   const toggle = (option: string) => {
-    if (multi) {
-      onChange(value.includes(option) ? value.filter((o) => o !== option) : [...value, option]);
-    } else {
-      onChange(value.includes(option) ? [] : [option]);
-    }
+    onChange(value === option ? null : option);
   };
 
   return (
     <div className="flex flex-wrap gap-[10px]">
       {options.map((option) => {
-        const selected = value.includes(option);
+        const selected = value === option;
         return (
           <button
             key={option}
@@ -89,23 +83,17 @@ const FRECUENCIA = ["1 vez por semana", "2 veces por semana", "3 veces por seman
 const SALUD = ["Sí", "No", "Prefiero no decirlo"];
 
 export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void; onBack: () => void }) {
-  const [objetivo, setObjetivo] = useState<string[]>([]);
-  const [logros, setLogros] = useState<string[]>([]);
-  const [experiencia, setExperiencia] = useState<string[]>([]);
-  const [complexion, setComplexion] = useState<string[]>([]);
-  const [motivacion, setMotivacion] = useState<string[]>([]);
-  const [tiempo, setTiempo] = useState<string[]>([]);
-  const [frecuencia, setFrecuencia] = useState<string[]>([]);
-  const [salud, setSalud] = useState<string[]>([]);
+  const [objetivo, setObjetivo] = useState<string | null>(null);
+  const [logros, setLogros] = useState<string | null>(null);
+  const [experiencia, setExperiencia] = useState<string | null>(null);
+  const [complexion, setComplexion] = useState<string | null>(null);
+  const [motivacion, setMotivacion] = useState<string | null>(null);
+  const [tiempo, setTiempo] = useState<string | null>(null);
+  const [frecuencia, setFrecuencia] = useState<string | null>(null);
+  const [salud, setSalud] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState(false);
 
-  const valid =
-    objetivo.length > 0 &&
-    experiencia.length > 0 &&
-    complexion.length > 0 &&
-    tiempo.length > 0 &&
-    frecuencia.length > 0 &&
-    salud.length > 0;
+  const valid = objetivo && experiencia && complexion && tiempo && frecuencia && salud;
 
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Motivaciones">
@@ -172,7 +160,7 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
             </Question>
 
             <Question label="¿Qué más te gustaría lograr con nosotros?">
-              <ChipGroup options={LOGROS} value={logros} onChange={setLogros} multi />
+              <ChipGroup options={LOGROS} value={logros} onChange={setLogros} />
             </Question>
 
             <Question label="¿Has corrido antes?">
@@ -184,7 +172,7 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
             </Question>
 
             <Question label="¿Qué te motiva más?">
-              <ChipGroup options={MOTIVACION} value={motivacion} onChange={setMotivacion} multi />
+              <ChipGroup options={MOTIVACION} value={motivacion} onChange={setMotivacion} />
             </Question>
 
             <Question label="¿Cuánto tiempo tienes por sesión?">
