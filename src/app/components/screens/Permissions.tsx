@@ -28,12 +28,16 @@ function IdCardLanyardIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-function Step({ icon, label, variant, compact }: { icon: React.ReactNode; label: string; variant: "done" | "pending"; compact: boolean }) {
+function Step({ icon, label, variant, compact }: { icon: React.ReactNode; label: string; variant: "completed" | "active" | "upcoming"; compact: boolean }) {
   return (
-    <div className="flex flex-col items-center gap-[8px]">
+    <div className={`flex flex-col items-center gap-[8px] shrink-0 ${compact ? "" : "w-[84px]"}`}>
       <div
         className={`flex items-center justify-center size-[44px] rounded-[10px] transition-colors ${
-          variant === "done" ? "bg-[#3643ba] text-white" : "bg-[#f5f5f5] text-[#b3b3b3]"
+          variant === "completed"
+            ? "bg-[#3643ba] text-white"
+            : variant === "active"
+            ? "bg-white text-[#3643ba] border-2 border-[#3643ba]"
+            : "bg-[#f5f5f5] text-[#b3b3b3]"
         }`}
       >
         {icon}
@@ -44,7 +48,9 @@ function Step({ icon, label, variant, compact }: { icon: React.ReactNode; label:
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className={`overflow-hidden font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${variant === "done" ? "text-[#2c2c2c]" : "text-[#b3b3b3]"}`}
+            className={`overflow-hidden text-center font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${
+              variant === "upcoming" ? "text-[#b3b3b3]" : "text-[#2c2c2c]"
+            }`}
           >
             {label}
           </motion.span>
@@ -139,11 +145,11 @@ export function Permissions({ onContinue, onBack }: { onContinue: () => void; on
             {/* Compact stepper is centered across the full header width, independent of the arrow */}
             {collapsed && (
               <div className="absolute inset-0 flex items-center justify-center gap-[8px] animate-in fade-in duration-300">
-                <Step compact variant="done" icon={<NotepadTextIcon size={22} />} label="Info personal" />
+                <Step compact variant="completed" icon={<NotepadTextIcon size={22} />} label="Info personal" />
+                <div className="h-px w-[28px] bg-[#3643ba]" />
+                <Step compact variant="active" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
                 <div className="h-px w-[28px] bg-[#e0e0e0]" />
-                <Step compact variant="pending" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
-                <div className="h-px w-[28px] bg-[#e0e0e0]" />
-                <Step compact variant="pending" icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
+                <Step compact variant="upcoming" icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
               </div>
             )}
           </div>
@@ -151,11 +157,11 @@ export function Permissions({ onContinue, onBack }: { onContinue: () => void; on
           {/* Full stepper below the arrow */}
           {!collapsed && (
             <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px] animate-in fade-in duration-300">
-              <Step compact={false} variant="done" icon={<NotepadTextIcon size={22} />} label="Info personal" />
+              <Step compact={false} variant="completed" icon={<NotepadTextIcon size={22} />} label="Info personal" />
+              <div className="h-px flex-1 bg-[#3643ba] mt-[22px]" />
+              <Step compact={false} variant="active" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
               <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
-              <Step compact={false} variant="pending" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
-              <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
-              <Step compact={false} variant="pending" icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
+              <Step compact={false} variant="upcoming" icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
             </div>
           )}
         </div>

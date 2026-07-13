@@ -246,7 +246,7 @@ const GENDERS: { id: Gender; label: string }[] = [
 
 function Step({ icon, label, active, compact }: { icon: React.ReactNode; label: string; active: boolean; compact: boolean }) {
   return (
-    <div className="flex flex-col items-center gap-[8px]">
+    <div className={`flex flex-col items-center gap-[8px] shrink-0 ${compact ? "" : "w-[84px]"}`}>
       <div
         className={`flex items-center justify-center size-[44px] rounded-[10px] transition-colors ${
           active ? "bg-white text-[#3643ba] border-2 border-[#3643ba]" : "bg-[#f5f5f5] text-[#b3b3b3]"
@@ -260,7 +260,7 @@ function Step({ icon, label, active, compact }: { icon: React.ReactNode; label: 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className={`overflow-hidden font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${active ? "text-[#2c2c2c]" : "text-[#b3b3b3]"}`}
+            className={`overflow-hidden text-center font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${active ? "text-[#2c2c2c]" : "text-[#b3b3b3]"}`}
           >
             {label}
           </motion.span>
