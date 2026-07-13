@@ -176,7 +176,7 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
             {collapsed && (
               <div className="absolute inset-0 flex items-center justify-center gap-[8px] animate-in fade-in duration-300">
                 <Step compact active={false} completed icon={<NotepadTextIcon size={22} />} label="Info personal" />
-                <div className="h-px w-[28px] bg-[#e0e0e0]" />
+                <div className="h-px w-[28px] bg-[#3643ba]" />
                 <Step compact active icon={<LandPlotIcon size={22} />} label="Motivaciones" />
                 <div className="h-px w-[28px] bg-[#e0e0e0]" />
                 <Step compact active={false} icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
@@ -188,7 +188,7 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
           {!collapsed && (
             <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px] animate-in fade-in duration-300">
               <Step compact={false} active={false} completed icon={<NotepadTextIcon size={22} />} label="Info personal" />
-              <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
+              <div className="h-px flex-1 bg-[#3643ba] mt-[22px]" />
               <Step compact={false} active icon={<LandPlotIcon size={22} />} label="Motivaciones" />
               <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
               <Step compact={false} active={false} icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
