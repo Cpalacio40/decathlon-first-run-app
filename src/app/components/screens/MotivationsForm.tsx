@@ -27,12 +27,28 @@ function IdCardLanyardIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-function Step({ icon, label, active, compact }: { icon: React.ReactNode; label: string; active: boolean; compact: boolean }) {
+function Step({
+  icon,
+  label,
+  active,
+  completed,
+  compact,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  active: boolean;
+  completed?: boolean;
+  compact: boolean;
+}) {
   return (
     <div className="flex flex-col items-center gap-[8px]">
       <div
         className={`flex items-center justify-center size-[44px] rounded-[10px] transition-colors ${
-          active ? "bg-white text-[#3643ba] border-2 border-[#3643ba]" : "bg-[#f5f5f5] text-[#b3b3b3]"
+          completed
+            ? "bg-[#3643ba] text-white"
+            : active
+            ? "bg-white text-[#3643ba] border-2 border-[#3643ba]"
+            : "bg-[#f5f5f5] text-[#b3b3b3]"
         }`}
       >
         {icon}
@@ -43,7 +59,9 @@ function Step({ icon, label, active, compact }: { icon: React.ReactNode; label: 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className={`overflow-hidden font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${active ? "text-[#2c2c2c]" : "text-[#b3b3b3]"}`}
+            className={`overflow-hidden font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${
+              completed || active ? "text-[#3643ba]" : "text-[#b3b3b3]"
+            }`}
           >
             {label}
           </motion.span>
@@ -157,7 +175,7 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
             {/* Compact stepper is centered across the full header width, independent of the arrow */}
             {collapsed && (
               <div className="absolute inset-0 flex items-center justify-center gap-[8px] animate-in fade-in duration-300">
-                <Step compact active={false} icon={<NotepadTextIcon size={22} />} label="Info personal" />
+                <Step compact active={false} completed icon={<NotepadTextIcon size={22} />} label="Info personal" />
                 <div className="h-px w-[28px] bg-[#e0e0e0]" />
                 <Step compact active icon={<LandPlotIcon size={22} />} label="Motivaciones" />
                 <div className="h-px w-[28px] bg-[#e0e0e0]" />
@@ -169,7 +187,7 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
           {/* Full stepper below the arrow */}
           {!collapsed && (
             <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px] animate-in fade-in duration-300">
-              <Step compact={false} active={false} icon={<NotepadTextIcon size={22} />} label="Info personal" />
+              <Step compact={false} active={false} completed icon={<NotepadTextIcon size={22} />} label="Info personal" />
               <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
               <Step compact={false} active icon={<LandPlotIcon size={22} />} label="Motivaciones" />
               <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
