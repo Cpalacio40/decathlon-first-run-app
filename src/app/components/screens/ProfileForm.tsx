@@ -223,21 +223,19 @@ const GENDERS: { id: Gender; label: string }[] = [
 function Step({ icon, label, active, compact }: { icon: React.ReactNode; label: string; active: boolean; compact: boolean }) {
   return (
     <div className="flex flex-col items-center gap-[8px]">
-      <motion.div
-        animate={{ width: compact ? 34 : 44, height: compact ? 34 : 44, borderRadius: compact ? 8 : 10 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className={`flex items-center justify-center ${
+      <div
+        className={`flex items-center justify-center size-[44px] rounded-[10px] transition-colors ${
           compact
             ? active
               ? "bg-white text-[#3643ba] border-2 border-[#3643ba]"
-              : "bg-[#eceef5] text-[#b3b3b3]"
+              : "bg-[#f5f5f5] text-[#b3b3b3]"
             : active
               ? "bg-[#3643ba] text-white ring-2 ring-[#3643ba]/40"
               : "bg-[#eceef5] text-[#b3b3b3]"
         }`}
       >
         {icon}
-      </motion.div>
+      </div>
       <AnimatePresence initial={false}>
         {!compact && (
           <motion.span
@@ -301,11 +299,11 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
           {/* Compact stepper sits inline with the arrow */}
           {collapsed && (
             <div className="flex-1 flex items-center justify-center gap-[8px] pr-[48px]">
-              <Step compact active icon={<ClipboardList size={18} />} label="Info personal" />
+              <Step compact active icon={<ClipboardList size={22} />} label="Info personal" />
               <div className="h-px w-[28px] bg-[#e0e0e0]" />
-              <Step compact active={false} icon={<Dumbbell size={18} />} label="Motivaciones" />
+              <Step compact active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
               <div className="h-px w-[28px] bg-[#e0e0e0]" />
-              <Step compact active={false} icon={<Users size={18} />} label="Mentores" />
+              <Step compact active={false} icon={<Users size={22} />} label="Mentores" />
             </div>
           )}
         </div>
