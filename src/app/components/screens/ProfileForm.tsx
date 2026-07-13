@@ -275,9 +275,12 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="iPhone 13 & 14 - 36">
       {/* Scrollable form (header sticks to the top and content scrolls underneath it) */}
       <div
-        onScroll={(e) => setCollapsed(e.currentTarget.scrollTop > 24)}
+        onScroll={(e) => {
+          const top = e.currentTarget.scrollTop;
+          setCollapsed((prev) => (prev ? top > 12 : top > 36));
+        }}
         className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", overflowAnchor: "none" }}
       >
         {/* Sticky header + stepper */}
         <div
@@ -286,8 +289,8 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
             collapsed ? "border-[#f0f0f0] flex items-center" : "border-transparent pt-[24px] pb-[8px]"
           }`}
         >
-          <div className="flex items-center gap-[16px]">
-            <PressableButton onClick={onBack} className="block relative size-[32px] shrink-0">
+          <div className="relative flex items-center w-full">
+            <PressableButton onClick={onBack} className="relative z-10 block size-[32px] shrink-0">
               <div className="absolute inset-[20.83%]">
                 <div className="absolute inset-[-7.14%]">
                   <svg className="block size-full" fill="none" viewBox="0 0 21.3333 21.3333">
@@ -297,9 +300,9 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
               </div>
             </PressableButton>
 
-            {/* Compact stepper sits inline with the arrow */}
+            {/* Compact stepper is centered across the full header width, independent of the arrow */}
             {collapsed && (
-              <div className="flex-1 flex items-center justify-center gap-[8px] pr-[48px] animate-in fade-in duration-300">
+              <div className="absolute inset-0 flex items-center justify-center gap-[8px] animate-in fade-in duration-300">
                 <Step compact active icon={<ClipboardList size={22} />} label="Info personal" />
                 <div className="h-px w-[28px] bg-[#e0e0e0]" />
                 <Step compact active={false} icon={<Dumbbell size={22} />} label="Motivaciones" />
