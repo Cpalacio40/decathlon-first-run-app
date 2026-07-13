@@ -11,6 +11,7 @@ import { PaymentSheet } from "./components/screens/PaymentSheet";
 import { AccessConfirmed } from "./components/screens/AccessConfirmed";
 import { ManualCode } from "./components/screens/ManualCode";
 import { ProfileForm } from "./components/screens/ProfileForm";
+import { MotivationsForm } from "./components/screens/MotivationsForm";
 import { Permissions } from "./components/screens/Permissions";
 
 type Screen =
@@ -25,6 +26,7 @@ type Screen =
   | "payment"
   | "confirmed"
   | "profile"
+  | "motivations"
   | "permissions";
 
 const ORDER: Screen[] = [
@@ -35,6 +37,7 @@ const ORDER: Screen[] = [
   "payment",
   "confirmed",
   "profile",
+  "motivations",
   "permissions",
   "ticket",
   "manual",
@@ -78,9 +81,11 @@ export default function App() {
       case "confirmed":
         return <AccessConfirmed trial={trial} onStart={() => go("profile")} />;
       case "profile":
-        return <ProfileForm onContinue={() => go("permissions")} onBack={() => go("confirmed")} />;
+        return <ProfileForm onContinue={() => go("motivations")} onBack={() => go("confirmed")} />;
+      case "motivations":
+        return <MotivationsForm onContinue={() => go("permissions")} onBack={() => go("profile")} />;
       case "permissions":
-        return <Permissions onContinue={() => go("ticket")} onBack={() => go("profile")} />;
+        return <Permissions onContinue={() => go("ticket")} onBack={() => go("motivations")} />;
       case "ticket":
         return <TicketGuide onScan={() => go("camera")} onBack={() => go("subscription")} onManual={() => go("manual")} />;
       case "manual":
@@ -134,6 +139,7 @@ export default function App() {
     { id: "payment", label: "Pago" },
     { id: "confirmed", label: "Bienvenido" },
     { id: "profile", label: "Formulario" },
+    { id: "motivations", label: "Motivaciones" },
     { id: "permissions", label: "Permisos" },
     { id: "ticket", label: "Ticket" },
     { id: "manual", label: "Código manual" },
