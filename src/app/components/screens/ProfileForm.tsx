@@ -230,7 +230,7 @@ function Step({ icon, label, active, compact }: { icon: React.ReactNode; label: 
           compact
             ? active
               ? "bg-white text-[#3643ba] border-2 border-[#3643ba]"
-              : "bg-white text-[#c4c4c4] border-2 border-dashed border-[#d9d9d9]"
+              : "bg-[#eceef5] text-[#b3b3b3]"
             : active
               ? "bg-[#3643ba] text-white ring-2 ring-[#3643ba]/40"
               : "bg-[#eceef5] text-[#b3b3b3]"
@@ -282,14 +282,13 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="iPhone 13 & 14 - 36">
       {/* Header + stepper */}
-      <div className="shrink-0 px-[16px] pt-[24px] pb-[8px]">
+      <div
+        className={`shrink-0 px-[16px] pt-[24px] pb-[8px] transition-colors ${
+          collapsed ? "bg-white border-b border-[#f0f0f0]" : ""
+        }`}
+      >
         <div className="flex items-center gap-[16px]">
-          <PressableButton
-            onClick={onBack}
-            className={`relative shrink-0 flex items-center justify-center transition-all ${
-              collapsed ? "size-[34px] rounded-[8px] border-2 border-[#3643ba]" : "size-[32px]"
-            }`}
-          >
+          <PressableButton onClick={onBack} className="block relative size-[32px] shrink-0">
             <div className="absolute inset-[20.83%]">
               <div className="absolute inset-[-7.14%]">
                 <svg className="block size-full" fill="none" viewBox="0 0 21.3333 21.3333">
@@ -303,9 +302,9 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
           {collapsed && (
             <div className="flex-1 flex items-center justify-center gap-[8px] pr-[48px]">
               <Step compact active icon={<ClipboardList size={18} />} label="Info personal" />
-              <div className="w-[28px] border-t-2 border-dashed border-[#d9d9d9]" />
+              <div className="h-px w-[28px] bg-[#e0e0e0]" />
               <Step compact active={false} icon={<Dumbbell size={18} />} label="Motivaciones" />
-              <div className="w-[28px] border-t-2 border-dashed border-[#d9d9d9]" />
+              <div className="h-px w-[28px] bg-[#e0e0e0]" />
               <Step compact active={false} icon={<Users size={18} />} label="Mentores" />
             </div>
           )}
