@@ -60,7 +60,7 @@ function Step({
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className={`overflow-hidden font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] ${
-              completed || active ? "text-[#3643ba]" : "text-[#b3b3b3]"
+              completed || active ? "text-[#2c2c2c]" : "text-[#b3b3b3]"
             }`}
           >
             {label}
