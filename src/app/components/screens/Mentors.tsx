@@ -245,8 +245,8 @@ export function Mentors({ onContinue, onBack }: { onContinue: () => void; onBack
           )}
         </div>
 
-        <div className="px-[24px] pt-[24px] pb-[24px]">
-          <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[30px] text-[#2c2c2c] text-[24px] text-center mb-[24px]">
+        <div className="px-[24px] pt-[44px] pb-[24px]">
+          <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[26px] text-[#2c2c2c] text-[20px] text-center mb-[24px]">
             El coach correcto hace la diferencia entre empezar y mantenerte
           </p>
 
