@@ -81,7 +81,9 @@ export function PlanLoading({ onDone }: { onDone: () => void }) {
         {/* Social proof */}
         <div className="px-[24px] mb-[20px] text-center">
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[34px] text-[#2c2c2c] text-[28px] mb-[10px]">
-            Ellos también empezaron aquí
+            Ellos también
+            <br />
+            empezaron aquí
           </p>
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[14px] leading-[18px] text-[#8a8a8a]">
             personas reales, puntos de partida reales
