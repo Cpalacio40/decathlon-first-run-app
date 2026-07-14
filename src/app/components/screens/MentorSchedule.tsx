@@ -184,16 +184,16 @@ export function MentorSchedule({ onBack, onContinue }: { onBack: () => void; onC
 
         <div className="px-[24px] pt-[28px] pb-[24px]">
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[30px] text-[#2c2c2c] text-[26px] text-center mb-[16px]">
-            Agendemos tu primera mentoría
+            Agendemos tu<br />primera mentoría
           </p>
-          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[14px] leading-[20px] text-[#8a8a8a] text-center mb-[28px]">
-            Sesiones <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[#2c2c2c]">100% online</span> para adaptarlas a tus tiempos y acceso en cualquier lugar.
+          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[16px] leading-[22px] text-[#8a8a8a] text-center mb-[28px]">
+            Sesiones <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[#2c2c2c]">100% online</span> para adaptarlas<br />a tus tiempos y acceso en cualquier lugar.
           </p>
 
-          <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[16px] leading-[20px] text-[#2c2c2c] mb-[2px]">
+          <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[16px] leading-[20px] text-[#2c2c2c] text-center mb-[2px]">
             Mentorías Laura Luz – 30 min
           </p>
-          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#8a8a8a] mb-[16px]">
+          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#8a8a8a] text-center mb-[16px]">
             (GMT+02:00) Hora de Europa central – Madrid
           </p>
 
