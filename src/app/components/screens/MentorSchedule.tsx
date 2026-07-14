@@ -110,7 +110,13 @@ function TimePicker({ value, onChange }: { value: string; onChange: (v: string) 
   );
 }
 
-export function MentorSchedule({ onBack, onContinue }: { onBack: () => void; onContinue: () => void }) {
+export function MentorSchedule({
+  onBack,
+  onContinue,
+}: {
+  onBack: () => void;
+  onContinue: (date: Date, time: string) => void;
+}) {
   const today = new Date();
   const [collapsed, setCollapsed] = useState(false);
   const [view, setView] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1));
@@ -270,7 +276,7 @@ export function MentorSchedule({ onBack, onContinue }: { onBack: () => void; onC
       {/* Fixed footer */}
       <div className="shrink-0 bg-white px-[28px] pt-[17px] pb-[48px] border-t border-[#f0f0f0]">
         <PressableButton
-          onClick={onContinue}
+          onClick={() => selectedDate && onContinue(selectedDate, time)}
           disabled={!valid}
           interactive={valid}
           className={`w-full h-[48px] rounded-[6px] flex items-center justify-center transition-colors ${valid ? "bg-[#3643ba]" : "bg-[#d9d9d9]"}`}

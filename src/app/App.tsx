@@ -18,6 +18,7 @@ import { PlanReady } from "./components/screens/PlanReady";
 import { Mentors } from "./components/screens/Mentors";
 import { MentorDetail } from "./components/screens/MentorDetail";
 import { MentorSchedule } from "./components/screens/MentorSchedule";
+import { MentorScheduled } from "./components/screens/MentorScheduled";
 
 type Screen =
   | "splash"
@@ -37,6 +38,7 @@ type Screen =
   | "mentors"
   | "mentorDetail"
   | "mentorSchedule"
+  | "mentorScheduled"
   | "permissions";
 
 const ORDER: Screen[] = [
@@ -54,6 +56,7 @@ const ORDER: Screen[] = [
   "mentors",
   "mentorDetail",
   "mentorSchedule",
+  "mentorScheduled",
   "ticket",
   "manual",
   "camera",
@@ -64,6 +67,8 @@ export default function App() {
   const [dir, setDir] = useState(1);
   const [trial, setTrial] = useState(false);
   const [debugOpen, setDebugOpen] = useState(true);
+  const [scheduledDate, setScheduledDate] = useState(new Date());
+  const [scheduledTime, setScheduledTime] = useState("11:00");
 
   const go = (next: Screen) => {
     const a = ORDER.indexOf(screen);
@@ -110,7 +115,25 @@ export default function App() {
       case "mentorDetail":
         return <MentorDetail onBack={() => go("mentors")} onSchedule={() => go("mentorSchedule")} />;
       case "mentorSchedule":
-        return <MentorSchedule onBack={() => go("mentorDetail")} onContinue={() => go("ticket")} />;
+        return (
+          <MentorSchedule
+            onBack={() => go("mentorDetail")}
+            onContinue={(date, time) => {
+              setScheduledDate(date);
+              setScheduledTime(time);
+              go("mentorScheduled");
+            }}
+          />
+        );
+      case "mentorScheduled":
+        return (
+          <MentorScheduled
+            date={scheduledDate}
+            time={scheduledTime}
+            onBack={() => go("mentorSchedule")}
+            onAccept={() => go("ticket")}
+          />
+        );
       case "ticket":
         return <TicketGuide onScan={() => go("camera")} onBack={() => go("subscription")} onManual={() => go("manual")} />;
       case "manual":
@@ -171,6 +194,7 @@ export default function App() {
     { id: "mentors", label: "Mentores" },
     { id: "mentorDetail", label: "Detalle mentor" },
     { id: "mentorSchedule", label: "Agendar mentoría" },
+    { id: "mentorScheduled", label: "Mentoría agendada" },
     { id: "ticket", label: "Ticket" },
     { id: "manual", label: "Código manual" },
     { id: "camera", label: "Cámara" },
