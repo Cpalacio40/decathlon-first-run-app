@@ -23,7 +23,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 function ProgressRing({ progress }: { progress: number }) {
   return (
-    <div className="relative size-[128px]">
+    <div className="relative size-[95px]">
       <svg viewBox="0 0 120 120" className="-rotate-90 size-full">
         <circle cx="60" cy="60" r={RADIUS} fill="none" stroke="#e6e6e6" strokeWidth="9" />
         <circle
@@ -40,7 +40,7 @@ function ProgressRing({ progress }: { progress: number }) {
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[28px] text-[#3643ba]">{progress}%</span>
+        <span className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[20px] text-[#3643ba]">{progress}%</span>
       </div>
     </div>
   );
