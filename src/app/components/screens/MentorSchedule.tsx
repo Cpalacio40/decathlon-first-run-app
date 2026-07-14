@@ -186,7 +186,7 @@ export function MentorSchedule({ onBack, onContinue }: { onBack: () => void; onC
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[30px] text-[#2c2c2c] text-[26px] text-center mb-[16px]">
             Agendemos tu<br />primera mentoría
           </p>
-          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[16px] leading-[22px] text-[#8a8a8a] text-center mb-[28px]">
+          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[16px] leading-[22px] text-[#8a8a8a] text-center mb-[44px]">
             Sesiones <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[#2c2c2c]">100% online</span> para adaptarlas<br />a tus tiempos y acceso en cualquier lugar.
           </p>
 
