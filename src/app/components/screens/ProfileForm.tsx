@@ -249,7 +249,7 @@ function BirthDateSheet({
         transition={{ type: "spring", stiffness: 380, damping: 28 }}
         className="w-[320px] bg-white rounded-[16px] pt-[20px] pb-[8px] px-[16px] shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
       >
-        <p className="text-center font-['Host_Grotesk:Bold',sans-serif] font-bold text-[17px] leading-[22px] text-[#111] mb-[14px]">
+        <p className="text-center font-['Host_Grotesk:Bold',sans-serif] font-bold text-[22px] leading-[26px] text-[#111] mb-[14px]">
           Selecciona tu fecha
           <br />
           de nacimiento
@@ -269,7 +269,7 @@ function BirthDateSheet({
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 h-[48px] font-['Host_Grotesk:Regular',sans-serif] font-normal text-[15px] text-[#2c2c2c]"
+            className="flex-1 h-[48px] font-['Host_Grotesk:Regular',sans-serif] font-normal text-[16px] text-[#2c2c2c]"
           >
             Cancelar
           </button>
@@ -277,7 +277,7 @@ function BirthDateSheet({
           <button
             type="button"
             onClick={() => onAccept(new Date(year, month, day))}
-            className="flex-1 h-[48px] font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#3643ba]"
+            className="flex-1 h-[48px] font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[16px] text-[#3643ba]"
           >
             Aceptar
           </button>
