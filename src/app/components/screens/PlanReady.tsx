@@ -161,7 +161,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
               <div className="absolute inset-0 flex items-center justify-center gap-[8px] animate-in fade-in duration-300">
                 <Step compact variant="completed" icon={<NotepadTextIcon size={22} />} label="Info personal" />
                 <div className="h-px w-[28px] bg-[#3643ba]" />
-                <Step compact variant="active" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
+                <Step compact variant="completed" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
                 <div className="h-px w-[28px] bg-[#e0e0e0]" />
                 <Step compact variant="upcoming" icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
               </div>
@@ -173,7 +173,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
             <div className="flex items-start justify-center gap-[8px] px-[13px] pt-[16px] animate-in fade-in duration-300">
               <Step compact={false} variant="completed" icon={<NotepadTextIcon size={22} />} label="Info personal" />
               <div className="h-px flex-1 bg-[#3643ba] mt-[22px]" />
-              <Step compact={false} variant="active" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
+              <Step compact={false} variant="completed" icon={<LandPlotIcon size={22} />} label="Motivaciones" />
               <div className="h-px flex-1 bg-[#e0e0e0] mt-[22px]" />
               <Step compact={false} variant="upcoming" icon={<IdCardLanyardIcon size={22} />} label="Mentores" />
             </div>
