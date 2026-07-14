@@ -72,7 +72,7 @@ export function PlanLoading({ onDone }: { onDone: () => void }) {
         {/* Progress */}
         <div className="flex flex-col items-center pt-[56px] pb-[56px] px-[24px]">
           <ProgressRing progress={progress} />
-          <p className="mt-[20px] text-center leading-[20px] text-[15px]">
+          <p className="mt-[20px] text-center leading-[20px] text-[14px]">
             <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[#2c2c2c]">Creando tu plan </span>
             <span className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[#8a8a8a]">{statusFor(progress)}</span>
           </p>
