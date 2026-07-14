@@ -4,6 +4,7 @@ import { Check, ClipboardCheck, Footprints, TrendingUp, Heart, ShieldCheck, Note
 import svgPaths from "../../../imports/IPhone131423/svg-cg0jrywrs1";
 import { PressableButton } from "../PressableButton";
 import { loadMotivations } from "../../lib/motivationsStorage";
+import { loadProfile } from "../../lib/profileStorage";
 
 function NotepadTextIcon({ size = 22 }: { size?: number }) {
   return (
@@ -118,11 +119,13 @@ const GOALS = [
 export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBack: () => void }) {
   const [collapsed, setCollapsed] = useState(false);
   const [answers] = useState(() => loadMotivations());
+  const [profile] = useState(() => loadProfile());
 
   const objetivo = answers?.objetivo ?? "Crear Habito";
   const logros = answers?.logros ?? "Resistencia física";
   const motivacion = answers?.motivacion ?? "La compañía";
   const sesiones = answers?.tiempo && answers?.frecuencia ? `${answers.tiempo} / ${answers.frecuencia}` : "15 minutos / 2 veces por semana";
+  const nombreCompleto = profile?.nombre && profile?.apellido ? `${profile.nombre} ${profile.apellido}` : "Camila Palacio";
 
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Plan listo">
@@ -188,7 +191,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
           {/* Plan pill */}
           <div className="flex items-center justify-center gap-[8px] rounded-[8px] bg-[#eceef9] py-[14px] px-[16px] mb-[16px]">
             <NotebookPen size={18} className="text-[#3643ba] shrink-0" />
-            <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#3643ba]">Plan de Camila Palacio</span>
+            <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#3643ba]">Plan de {nombreCompleto}</span>
           </div>
 
           {/* Summary card */}
