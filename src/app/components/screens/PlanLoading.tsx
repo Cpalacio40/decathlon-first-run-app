@@ -70,7 +70,7 @@ export function PlanLoading({ onDone }: { onDone: () => void }) {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {/* Progress */}
-        <div className="flex flex-col items-center pt-[56px] pb-[32px] px-[24px]">
+        <div className="flex flex-col items-center pt-[56px] pb-[56px] px-[24px]">
           <ProgressRing progress={progress} />
           <p className="mt-[20px] text-center leading-[20px] text-[15px]">
             <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[#2c2c2c]">Creando tu plan </span>
@@ -88,13 +88,12 @@ export function PlanLoading({ onDone }: { onDone: () => void }) {
           </p>
         </div>
 
-        <div className="pb-[32px]">
-          <div className="relative overflow-hidden" style={{ height: 320 }}>
+        <div className="pb-[32px] overflow-hidden">
+          <div className="relative" style={{ width: "115%", marginLeft: "-7.5%" }}>
             <img
               src={imgTestimonios}
               alt="Testimonios de otros corredores"
-              className="absolute top-0 left-1/2 max-w-none -translate-x-1/2"
-              style={{ width: "115%" }}
+              className="block w-full h-auto"
             />
           </div>
         </div>
