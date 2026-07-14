@@ -184,7 +184,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[38px] text-[#2c2c2c] text-[32px] text-center mb-[12px]">
             Tu plan Personalizado esta listo
           </p>
-          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[14px] leading-[19px] text-[#8a8a8a] text-center mb-[24px]">
+          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[14px] leading-[19px] text-[#8a8a8a] text-center mb-[44px]">
             Puedes editarlo en cualquier momento desde tu perfil, o regresar para ajustarlos ahora.
           </p>
 
