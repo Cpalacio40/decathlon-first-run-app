@@ -144,11 +144,13 @@ function WheelColumn<T extends string | number>({
   value,
   onChange,
   render,
+  widthClass = "flex-1",
 }: {
   items: T[];
   value: T;
   onChange: (value: T) => void;
   render?: (item: T) => React.ReactNode;
+  widthClass?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number>();
@@ -182,7 +184,7 @@ function WheelColumn<T extends string | number>({
     <div
       ref={ref}
       onScroll={handleScroll}
-      className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden"
+      className={`${widthClass} min-w-0 overflow-y-auto [&::-webkit-scrollbar]:hidden`}
       style={{
         height: containerHeight,
         paddingTop: paddingY,
@@ -192,12 +194,12 @@ function WheelColumn<T extends string | number>({
       }}
     >
       {items.map((item) => (
-        <div key={String(item)} style={{ height: WHEEL_ITEM_HEIGHT, scrollSnapAlign: "center" }} className="flex items-center justify-center">
+        <div key={String(item)} style={{ height: WHEEL_ITEM_HEIGHT, scrollSnapAlign: "center" }} className="flex items-center justify-center px-[2px]">
           <span
             className={
               item === value
-                ? "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[17px] text-[#111]"
-                : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[17px] text-[#c4c4c4]"
+                ? "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#111] whitespace-nowrap"
+                : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[15px] text-[#c4c4c4] whitespace-nowrap"
             }
           >
             {render ? render(item) : item}
@@ -245,7 +247,7 @@ function BirthDateSheet({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.92 }}
         transition={{ type: "spring", stiffness: 380, damping: 28 }}
-        className="w-[280px] bg-white rounded-[16px] pt-[20px] pb-[8px] px-[16px] shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
+        className="w-[320px] bg-white rounded-[16px] pt-[20px] pb-[8px] px-[16px] shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
       >
         <p className="text-center font-['Host_Grotesk:Bold',sans-serif] font-bold text-[17px] leading-[22px] text-[#111] mb-[14px]">
           Selecciona tu fecha
@@ -255,12 +257,12 @@ function BirthDateSheet({
 
         <div className="relative flex items-stretch">
           <div
-            className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 rounded-[8px] bg-[#f0f1f6]"
+            className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 -z-10 rounded-[8px] bg-[#f0f1f6]"
             style={{ height: WHEEL_ITEM_HEIGHT }}
           />
-          <WheelColumn items={monthItems} value={month} onChange={setMonth} render={(m) => MONTHS[m]} />
-          <WheelColumn items={dayItems} value={day} onChange={setDay} />
-          <WheelColumn items={yearItems} value={year} onChange={setYear} />
+          <WheelColumn items={monthItems} value={month} onChange={setMonth} render={(m) => MONTHS[m]} widthClass="flex-[1.3]" />
+          <WheelColumn items={dayItems} value={day} onChange={setDay} widthClass="flex-[0.7]" />
+          <WheelColumn items={yearItems} value={year} onChange={setYear} widthClass="flex-[1]" />
         </div>
 
         <div className="flex items-center border-t border-[#f0f0f0] mt-[10px]">
