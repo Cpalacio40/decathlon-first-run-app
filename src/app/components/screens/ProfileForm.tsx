@@ -217,7 +217,7 @@ function BirthDateSheet({
   onCancel: () => void;
   onAccept: (d: Date) => void;
 }) {
-  const base = value ?? new Date(2000, 0, 1);
+  const base = value ?? new Date();
   const [month, setMonth] = useState(base.getMonth());
   const [day, setDay] = useState(base.getDate());
   const [year, setYear] = useState(base.getFullYear());
@@ -238,14 +238,14 @@ function BirthDateSheet({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.18 }}
-      className="absolute inset-0 z-50 flex items-end justify-center bg-black/40"
+      className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 p-[24px]"
     >
       <motion.div
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "100%" }}
-        transition={{ type: "spring", stiffness: 320, damping: 32 }}
-        className="w-full bg-white rounded-t-[16px] pt-[20px] pb-[8px] px-[16px]"
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.92 }}
+        transition={{ type: "spring", stiffness: 380, damping: 28 }}
+        className="w-[280px] bg-white rounded-[16px] pt-[20px] pb-[8px] px-[16px] shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
       >
         <p className="text-center font-['Host_Grotesk:Bold',sans-serif] font-bold text-[17px] leading-[22px] text-[#111] mb-[14px]">
           Selecciona tu fecha
