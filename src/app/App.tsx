@@ -17,6 +17,7 @@ import { PlanLoading } from "./components/screens/PlanLoading";
 import { PlanReady } from "./components/screens/PlanReady";
 import { Mentors } from "./components/screens/Mentors";
 import { MentorDetail } from "./components/screens/MentorDetail";
+import { MentorSchedule } from "./components/screens/MentorSchedule";
 
 type Screen =
   | "splash"
@@ -35,6 +36,7 @@ type Screen =
   | "planReady"
   | "mentors"
   | "mentorDetail"
+  | "mentorSchedule"
   | "permissions";
 
 const ORDER: Screen[] = [
@@ -51,6 +53,7 @@ const ORDER: Screen[] = [
   "planReady",
   "mentors",
   "mentorDetail",
+  "mentorSchedule",
   "ticket",
   "manual",
   "camera",
@@ -103,9 +106,11 @@ export default function App() {
       case "planReady":
         return <PlanReady onContinue={() => go("mentors")} onBack={() => go("motivations")} />;
       case "mentors":
-        return <Mentors onContinue={() => go("ticket")} onBack={() => go("planReady")} onOpenMentorDetail={() => go("mentorDetail")} />;
+        return <Mentors onBack={() => go("planReady")} onOpenMentorDetail={() => go("mentorDetail")} />;
       case "mentorDetail":
-        return <MentorDetail onBack={() => go("mentors")} onSchedule={() => go("ticket")} />;
+        return <MentorDetail onBack={() => go("mentors")} onSchedule={() => go("mentorSchedule")} />;
+      case "mentorSchedule":
+        return <MentorSchedule onBack={() => go("mentorDetail")} onContinue={() => go("ticket")} />;
       case "ticket":
         return <TicketGuide onScan={() => go("camera")} onBack={() => go("subscription")} onManual={() => go("manual")} />;
       case "manual":
@@ -165,6 +170,7 @@ export default function App() {
     { id: "planReady", label: "Plan listo" },
     { id: "mentors", label: "Mentores" },
     { id: "mentorDetail", label: "Detalle mentor" },
+    { id: "mentorSchedule", label: "Agendar mentoría" },
     { id: "ticket", label: "Ticket" },
     { id: "manual", label: "Código manual" },
     { id: "camera", label: "Cámara" },

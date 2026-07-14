@@ -189,11 +189,9 @@ function MentorCard({
 }
 
 export function Mentors({
-  onContinue,
   onBack,
   onOpenMentorDetail,
 }: {
-  onContinue: () => void;
   onBack: () => void;
   onOpenMentorDetail: () => void;
 }) {
@@ -264,13 +262,7 @@ export function Mentors({
                 key={mentor.id}
                 mentor={mentor}
                 selected={selected === mentor.id}
-                onSelect={() => {
-                  if (mentor.id === "laura") {
-                    onOpenMentorDetail();
-                  } else {
-                    setSelected(mentor.id);
-                  }
-                }}
+                onSelect={() => setSelected(mentor.id)}
               />
             ))}
           </div>
@@ -280,7 +272,7 @@ export function Mentors({
       {/* Fixed footer */}
       <div className="shrink-0 bg-white px-[28px] pt-[17px] pb-[48px] border-t border-[#f0f0f0]">
         <PressableButton
-          onClick={onContinue}
+          onClick={onOpenMentorDetail}
           disabled={!selected}
           interactive={!!selected}
           className={`w-full h-[48px] rounded-[6px] flex items-center justify-center transition-colors ${selected ? "bg-[#3643ba]" : "bg-[#d9d9d9]"}`}
