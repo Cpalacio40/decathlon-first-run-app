@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, ClipboardCheck, Footprints, TrendingUp, Heart, ShieldCheck, NotebookPen, Watch, Plus } from "lucide-react";
+import { Check, ClipboardCheck, Footprints, TrendingUp, Heart, ShieldCheck, NotebookPen, Plus } from "lucide-react";
 import svgPaths from "../../../imports/IPhone131423/svg-cg0jrywrs1";
 import { PressableButton } from "../PressableButton";
 import { loadMotivations } from "../../lib/motivationsStorage";
@@ -221,7 +221,6 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
             Sincroniza fácilmente todas las actividades registradas con tu reloj con Decathlon First run.
           </p>
           <PressableButton className="flex items-center justify-center gap-[8px] rounded-[6px] border border-[#d9d9d9] h-[44px] px-[20px]">
-            <Watch size={16} className="text-[#2c2c2c]" />
             <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[14px] text-[#2c2c2c]">Agregar reloj deportivo</span>
             <Plus size={16} className="text-[#2c2c2c]" />
           </PressableButton>
