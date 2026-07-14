@@ -68,7 +68,7 @@ function Tag({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <div className="inline-flex items-center gap-[6px] rounded-full bg-white/90 border border-[#ececec] px-[12px] py-[6px] shrink-0">
       <span className="text-[#3643ba]">{icon}</span>
-      <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[12px] leading-none text-[#2c2c2c] whitespace-nowrap">{label}</span>
+      <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[10px] leading-none text-[#2c2c2c] whitespace-nowrap">{label}</span>
     </div>
   );
 }
@@ -161,8 +161,8 @@ function MentorCard({
           style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.88) 38%, rgba(255,255,255,0.15) 68%, rgba(255,255,255,0) 85%)" }}
         />
 
-        <div className="relative z-10 flex h-full flex-col justify-between p-[20px]">
-          <div>
+        <div className="relative z-10 flex h-full flex-col p-[20px]">
+          <div className="flex-1 flex flex-col justify-center translate-y-[30px]">
             <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[22px] leading-[26px] text-[#2c2c2c]/35 mb-[10px] max-w-[220px]">
               {mentor.name}
             </p>
@@ -171,7 +171,7 @@ function MentorCard({
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-[8px]">
+          <div className="flex flex-nowrap gap-[8px]">
             {mentor.tags.map((tag) => (
               <Tag key={tag.label} icon={tag.icon} label={tag.label} />
             ))}
@@ -188,7 +188,15 @@ function MentorCard({
   );
 }
 
-export function Mentors({ onContinue, onBack }: { onContinue: () => void; onBack: () => void }) {
+export function Mentors({
+  onContinue,
+  onBack,
+  onOpenMentorDetail,
+}: {
+  onContinue: () => void;
+  onBack: () => void;
+  onOpenMentorDetail: () => void;
+}) {
   const [collapsed, setCollapsed] = useState(false);
   const [selected, setSelected] = useState<MentorId | null>(null);
 
@@ -252,7 +260,18 @@ export function Mentors({ onContinue, onBack }: { onContinue: () => void; onBack
 
           <div className="flex flex-col gap-[16px]">
             {MENTORS.map((mentor) => (
-              <MentorCard key={mentor.id} mentor={mentor} selected={selected === mentor.id} onSelect={() => setSelected(mentor.id)} />
+              <MentorCard
+                key={mentor.id}
+                mentor={mentor}
+                selected={selected === mentor.id}
+                onSelect={() => {
+                  if (mentor.id === "laura") {
+                    onOpenMentorDetail();
+                  } else {
+                    setSelected(mentor.id);
+                  }
+                }}
+              />
             ))}
           </div>
         </div>

@@ -16,6 +16,7 @@ import { Permissions } from "./components/screens/Permissions";
 import { PlanLoading } from "./components/screens/PlanLoading";
 import { PlanReady } from "./components/screens/PlanReady";
 import { Mentors } from "./components/screens/Mentors";
+import { MentorDetail } from "./components/screens/MentorDetail";
 
 type Screen =
   | "splash"
@@ -33,6 +34,7 @@ type Screen =
   | "planLoading"
   | "planReady"
   | "mentors"
+  | "mentorDetail"
   | "permissions";
 
 const ORDER: Screen[] = [
@@ -48,6 +50,7 @@ const ORDER: Screen[] = [
   "planLoading",
   "planReady",
   "mentors",
+  "mentorDetail",
   "ticket",
   "manual",
   "camera",
@@ -100,7 +103,9 @@ export default function App() {
       case "planReady":
         return <PlanReady onContinue={() => go("mentors")} onBack={() => go("motivations")} />;
       case "mentors":
-        return <Mentors onContinue={() => go("ticket")} onBack={() => go("planReady")} />;
+        return <Mentors onContinue={() => go("ticket")} onBack={() => go("planReady")} onOpenMentorDetail={() => go("mentorDetail")} />;
+      case "mentorDetail":
+        return <MentorDetail onBack={() => go("mentors")} onSchedule={() => go("ticket")} />;
       case "ticket":
         return <TicketGuide onScan={() => go("camera")} onBack={() => go("subscription")} onManual={() => go("manual")} />;
       case "manual":
@@ -159,6 +164,7 @@ export default function App() {
     { id: "planLoading", label: "Creando plan" },
     { id: "planReady", label: "Plan listo" },
     { id: "mentors", label: "Mentores" },
+    { id: "mentorDetail", label: "Detalle mentor" },
     { id: "ticket", label: "Ticket" },
     { id: "manual", label: "Código manual" },
     { id: "camera", label: "Cámara" },
