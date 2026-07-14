@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar } from "lucide-react";
 import svgPaths from "../../../imports/IPhone131423/svg-cg0jrywrs1";
 import { PressableButton } from "../PressableButton";
 import { saveProfile } from "../../lib/profileStorage";
@@ -30,7 +30,6 @@ function IdCardLanyardIcon({ size = 22 }: { size?: number }) {
 }
 
 const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-const WEEKDAYS = ["L", "M", "X", "J", "V", "S", "D"];
 
 function formatDate(d: Date) {
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -137,101 +136,162 @@ function MeasurePicker({
   );
 }
 
-function DatePicker({ value, onChange, inputClass }: { value: Date | null; onChange: (d: Date) => void; inputClass: string }) {
-  const [open, setOpen] = useState(false);
-  const [view, setView] = useState(() => value ?? new Date(2000, 0, 1));
+const WHEEL_ITEM_HEIGHT = 36;
+const WHEEL_VISIBLE_ROWS = 5;
 
-  const year = view.getFullYear();
-  const month = view.getMonth();
-  // Monday-first offset for the 1st of the month.
-  const firstDay = (new Date(year, month, 1).getDay() + 6) % 7;
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const cells: (number | null)[] = [
-    ...Array(firstDay).fill(null),
-    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
-  ];
+function WheelColumn<T extends string | number>({
+  items,
+  value,
+  onChange,
+  render,
+}: {
+  items: T[];
+  value: T;
+  onChange: (value: T) => void;
+  render?: (item: T) => React.ReactNode;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<number>();
+  const containerHeight = WHEEL_ITEM_HEIGHT * WHEEL_VISIBLE_ROWS;
+  const paddingY = (containerHeight - WHEEL_ITEM_HEIGHT) / 2;
 
-  const isSelected = (day: number) =>
-    value && value.getFullYear() === year && value.getMonth() === month && value.getDate() === day;
+  // Keep the scroll position in sync whenever the value changes from outside
+  // (initial mount, or clamped e.g. when a month has fewer days).
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const idx = items.indexOf(value);
+    if (idx < 0) return;
+    const currentIdx = Math.round(el.scrollTop / WHEEL_ITEM_HEIGHT);
+    if (currentIdx !== idx) el.scrollTop = idx * WHEEL_ITEM_HEIGHT;
+  }, [value, items]);
+
+  const handleScroll = () => {
+    window.clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(() => {
+      const el = ref.current;
+      if (!el) return;
+      const idx = Math.min(Math.max(Math.round(el.scrollTop / WHEEL_ITEM_HEIGHT), 0), items.length - 1);
+      el.scrollTo({ top: idx * WHEEL_ITEM_HEIGHT, behavior: "smooth" });
+      const next = items[idx];
+      if (next !== value) onChange(next);
+    }, 120);
+  };
 
   return (
+    <div
+      ref={ref}
+      onScroll={handleScroll}
+      className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden"
+      style={{
+        height: containerHeight,
+        paddingTop: paddingY,
+        paddingBottom: paddingY,
+        scrollbarWidth: "none",
+        scrollSnapType: "y mandatory",
+      }}
+    >
+      {items.map((item) => (
+        <div key={String(item)} style={{ height: WHEEL_ITEM_HEIGHT, scrollSnapAlign: "center" }} className="flex items-center justify-center">
+          <span
+            className={
+              item === value
+                ? "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[17px] text-[#111]"
+                : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[17px] text-[#c4c4c4]"
+            }
+          >
+            {render ? render(item) : item}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function BirthDateSheet({
+  value,
+  onCancel,
+  onAccept,
+}: {
+  value: Date | null;
+  onCancel: () => void;
+  onAccept: (d: Date) => void;
+}) {
+  const base = value ?? new Date(2000, 0, 1);
+  const [month, setMonth] = useState(base.getMonth());
+  const [day, setDay] = useState(base.getDate());
+  const [year, setYear] = useState(base.getFullYear());
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthItems = useMemo(() => Array.from({ length: 12 }, (_, i) => i), []);
+  const dayItems = useMemo(() => Array.from({ length: daysInMonth }, (_, i) => i + 1), [daysInMonth]);
+  const currentYear = new Date().getFullYear();
+  const yearItems = useMemo(() => Array.from({ length: 100 }, (_, i) => currentYear - 99 + i), [currentYear]);
+
+  useEffect(() => {
+    if (day > daysInMonth) setDay(daysInMonth);
+  }, [daysInMonth, day]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18 }}
+      className="absolute inset-0 z-50 flex items-end justify-center bg-black/40"
+    >
+      <motion.div
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", stiffness: 320, damping: 32 }}
+        className="w-full bg-white rounded-t-[16px] pt-[20px] pb-[8px] px-[16px]"
+      >
+        <p className="text-center font-['Host_Grotesk:Bold',sans-serif] font-bold text-[17px] leading-[22px] text-[#111] mb-[14px]">
+          Selecciona tu fecha
+          <br />
+          de nacimiento
+        </p>
+
+        <div className="relative flex items-stretch">
+          <div
+            className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 rounded-[8px] bg-[#f0f1f6]"
+            style={{ height: WHEEL_ITEM_HEIGHT }}
+          />
+          <WheelColumn items={monthItems} value={month} onChange={setMonth} render={(m) => MONTHS[m]} />
+          <WheelColumn items={dayItems} value={day} onChange={setDay} />
+          <WheelColumn items={yearItems} value={year} onChange={setYear} />
+        </div>
+
+        <div className="flex items-center border-t border-[#f0f0f0] mt-[10px]">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="flex-1 h-[48px] font-['Host_Grotesk:Regular',sans-serif] font-normal text-[15px] text-[#2c2c2c]"
+          >
+            Cancelar
+          </button>
+          <div className="w-px self-stretch bg-[#f0f0f0] my-[8px]" />
+          <button
+            type="button"
+            onClick={() => onAccept(new Date(year, month, day))}
+            className="flex-1 h-[48px] font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#3643ba]"
+          >
+            Aceptar
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function DateField({ value, onOpen, inputClass }: { value: Date | null; onOpen: () => void; inputClass: string }) {
+  return (
     <div className="relative">
-      <button type="button" onClick={() => setOpen((o) => !o)} className={`${inputClass} pr-[44px] flex items-center text-left`}>
+      <button type="button" onClick={onOpen} className={`${inputClass} pr-[44px] flex items-center text-left`}>
         <span className={value ? "text-[#111]" : "text-[#b0b0b0]"}>{value ? formatDate(value) : "DD/MM/AAAA"}</span>
       </button>
       <Calendar size={20} className="absolute right-[14px] top-1/2 -translate-y-1/2 text-[#3643ba] pointer-events-none" />
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.15 }}
-            className="absolute z-30 mt-[8px] w-[300px] rounded-[12px] bg-white p-[14px] shadow-[0_12px_40px_rgba(0,0,0,0.18)] ring-1 ring-black/5"
-          >
-            {/* Month / year controls */}
-            <div className="flex items-center justify-between mb-[10px]">
-              <button type="button" onClick={() => setView(new Date(year, month - 1, 1))} className="size-[28px] rounded-full hover:bg-[#f0f0f0] flex items-center justify-center text-[#2c2c2c]">
-                <ChevronLeft size={18} />
-              </button>
-              <div className="flex items-center gap-[6px]">
-                <select
-                  value={month}
-                  onChange={(e) => setView(new Date(year, Number(e.target.value), 1))}
-                  className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[14px] text-[#2c2c2c] outline-none bg-transparent"
-                >
-                  {MONTHS.map((m, i) => (
-                    <option key={m} value={i}>{m}</option>
-                  ))}
-                </select>
-                <select
-                  value={year}
-                  onChange={(e) => setView(new Date(Number(e.target.value), month, 1))}
-                  className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[14px] text-[#2c2c2c] outline-none bg-transparent"
-                >
-                  {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map((y) => (
-                    <option key={y} value={y}>{y}</option>
-                  ))}
-                </select>
-              </div>
-              <button type="button" onClick={() => setView(new Date(year, month + 1, 1))} className="size-[28px] rounded-full hover:bg-[#f0f0f0] flex items-center justify-center text-[#2c2c2c]">
-                <ChevronRight size={18} />
-              </button>
-            </div>
-
-            {/* Weekday headers */}
-            <div className="grid grid-cols-7 gap-[2px] mb-[4px]">
-              {WEEKDAYS.map((w) => (
-                <div key={w} className="text-center font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[11px] text-[#b3b3b3]">{w}</div>
-              ))}
-            </div>
-
-            {/* Days */}
-            <div className="grid grid-cols-7 gap-[2px]">
-              {cells.map((day, i) => (
-                <div key={i} className="flex items-center justify-center">
-                  {day && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const picked = new Date(year, month, day);
-                        onChange(picked);
-                        setOpen(false);
-                      }}
-                      className={`size-[34px] rounded-full text-[13px] transition-colors ${
-                        isSelected(day) ? "bg-[#3643ba] text-white" : "text-[#2c2c2c] hover:bg-[#eceef5]"
-                      }`}
-                    >
-                      {day}
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
@@ -293,6 +353,7 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
   const [pesoUnit, setPesoUnit] = useState("kg");
   const [gender, setGender] = useState<Gender | null>(null);
   const [collapsed, setCollapsed] = useState(false);
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
 
   const valid = nombre.trim() && apellido.trim() && fecha && gender;
 
@@ -367,7 +428,7 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
           </Field>
 
           <Field label="Fecha de nacimiento">
-            <DatePicker value={fecha} onChange={setFecha} inputClass={inputClass} />
+            <DateField value={fecha} onOpen={() => setDatePickerOpen(true)} inputClass={inputClass} />
           </Field>
 
           <div className="flex gap-[16px]">
@@ -429,6 +490,19 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
           <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[14px] text-white">Continuar</span>
         </PressableButton>
       </div>
+
+      <AnimatePresence>
+        {datePickerOpen && (
+          <BirthDateSheet
+            value={fecha}
+            onCancel={() => setDatePickerOpen(false)}
+            onAccept={(d) => {
+              setFecha(d);
+              setDatePickerOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
