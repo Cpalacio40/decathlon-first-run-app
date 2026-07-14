@@ -97,7 +97,7 @@ const MENTORS: {
   },
   {
     id: "marco",
-    name: "Marco Antonio Vazquez",
+    name: "Marco Antonio Vidal",
     subtitle: "Superar tus limites mentales",
     image: imgMarco,
     focus: "25% 10%",
