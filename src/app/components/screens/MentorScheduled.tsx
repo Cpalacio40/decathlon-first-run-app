@@ -39,22 +39,25 @@ export function MentorScheduled({
 
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Mentoria agendada">
-      <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-        {/* Header */}
-        <div className="relative flex items-center justify-center px-[16px] pt-[24px] pb-[12px]">
-          <PressableButton onClick={onBack} className="absolute left-[16px] z-10 block size-[32px] shrink-0">
-            <div className="absolute inset-[20.83%]">
-              <div className="absolute inset-[-7.14%]">
-                <svg className="block size-full" fill="none" viewBox="0 0 21.3333 21.3333">
-                  <path d={svgPaths.pdc7b00} stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.66667" />
-                </svg>
-              </div>
+      {/* Header */}
+      <div className="relative flex items-center justify-center px-[16px] pt-[24px] pb-[12px] shrink-0">
+        <PressableButton onClick={onBack} className="absolute left-[16px] z-10 block size-[32px] shrink-0">
+          <div className="absolute inset-[20.83%]">
+            <div className="absolute inset-[-7.14%]">
+              <svg className="block size-full" fill="none" viewBox="0 0 21.3333 21.3333">
+                <path d={svgPaths.pdc7b00} stroke="#2C2C2C" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.66667" />
+              </svg>
             </div>
-          </PressableButton>
-          <DecathlonLogo />
-        </div>
+          </div>
+        </PressableButton>
+        <DecathlonLogo />
+      </div>
 
-        <div className="px-[24px] pt-[36px] pb-[24px] flex flex-col items-center">
+      <div
+        className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden flex flex-col"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <div className="min-h-full px-[24px] py-[24px] flex flex-col items-center justify-center">
           <div className="flex items-center justify-center size-[64px] rounded-[16px] bg-[#3643ba] mb-[24px] shrink-0">
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
               <path d="M7 15.5L12.5 21L23 8" stroke="white" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
