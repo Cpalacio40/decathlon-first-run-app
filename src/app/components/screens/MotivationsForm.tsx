@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import svgPaths from "../../../imports/IPhone131423/svg-cg0jrywrs1";
 import { PressableButton } from "../PressableButton";
+import { saveMotivations } from "../../lib/motivationsStorage";
 
 function NotepadTextIcon({ size = 22 }: { size?: number }) {
   return (
@@ -143,6 +144,11 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
   const saludDetalleValid = salud !== "Sí" || saludDetalle.trim().length >= 10;
   const valid = objetivo && experiencia && complexion && tiempo && frecuencia && salud && saludDetalleValid;
 
+  const handleContinue = () => {
+    saveMotivations({ objetivo, logros, motivacion, tiempo, frecuencia });
+    onContinue();
+  };
+
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Motivaciones">
       {/* Scrollable form (header sticks to the top and content scrolls underneath it) */}
@@ -263,7 +269,7 @@ export function MotivationsForm({ onContinue, onBack }: { onContinue: () => void
       {/* Fixed footer */}
       <div className="shrink-0 bg-white px-[28px] pt-[17px] pb-[48px] border-t border-[#f0f0f0]">
         <PressableButton
-          onClick={onContinue}
+          onClick={handleContinue}
           disabled={!valid}
           interactive={!!valid}
           className={`w-full h-[48px] rounded-[6px] flex items-center justify-center transition-colors ${valid ? "bg-[#3643ba]" : "bg-[#d9d9d9]"}`}

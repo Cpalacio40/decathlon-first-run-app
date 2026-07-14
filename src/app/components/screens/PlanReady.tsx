@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Check, ClipboardCheck, Footprints, TrendingUp, Heart, ShieldCheck, NotebookPen, Watch, Plus } from "lucide-react";
 import svgPaths from "../../../imports/IPhone131423/svg-cg0jrywrs1";
 import { PressableButton } from "../PressableButton";
+import { loadMotivations } from "../../lib/motivationsStorage";
 
 function NotepadTextIcon({ size = 22 }: { size?: number }) {
   return (
@@ -116,6 +117,12 @@ const GOALS = [
 
 export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBack: () => void }) {
   const [collapsed, setCollapsed] = useState(false);
+  const [answers] = useState(() => loadMotivations());
+
+  const objetivo = answers?.objetivo ?? "Crear Habito";
+  const logros = answers?.logros ?? "Resistencia física";
+  const motivacion = answers?.motivacion ?? "La compañía";
+  const sesiones = answers?.tiempo && answers?.frecuencia ? `${answers.tiempo} / ${answers.frecuencia}` : "15 minutos / 2 veces por semana";
 
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Plan listo">
@@ -186,10 +193,10 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
 
           {/* Summary card */}
           <div className="rounded-[12px] border border-[#ececec] mb-[28px]">
-            <SummaryRow label="Tu objetivo es" value="Crear Habito" />
-            <SummaryRow label="Quieres lograr" value="Resistencia física" />
-            <SummaryRow label="Te motiva" value="La compañía" />
-            <SummaryRow label="Sesiones" value="15 minutos / 2 veces por semana" isLast />
+            <SummaryRow label="Tu objetivo es" value={objetivo} />
+            <SummaryRow label="Quieres lograr" value={logros} />
+            <SummaryRow label="Te motiva" value={motivacion} />
+            <SummaryRow label="Sesiones" value={sesiones} isLast />
           </div>
 
           {/* Section pill */}
