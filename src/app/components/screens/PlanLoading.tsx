@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Play, Star } from "lucide-react";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import imgTestimonios from "../../../imports/Cards testimonios imagen.png";
 
 const DURATION = 4200;
 
@@ -47,87 +46,6 @@ function ProgressRing({ progress }: { progress: number }) {
   );
 }
 
-function StarRow({ size = 10 }: { size?: number }) {
-  return (
-    <div className="flex items-center gap-[1px]">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} size={size} className="fill-[#2c2c2c] text-[#2c2c2c]" />
-      ))}
-    </div>
-  );
-}
-
-function Waveform() {
-  const bars = [4, 9, 15, 10, 19, 12, 21, 9, 16, 7, 14, 6, 17, 10, 5, 13, 8, 15, 6, 9];
-  return (
-    <div className="flex items-center gap-[8px] rounded-[8px] bg-[#f5f5f5] px-[10px] py-[8px]">
-      <div className="flex items-center justify-center size-[20px] rounded-full bg-white shrink-0">
-        <Play size={10} className="fill-[#3643ba] text-[#3643ba] ml-[1px]" />
-      </div>
-      <div className="flex items-center gap-[2px] flex-1 h-[18px] overflow-hidden">
-        {bars.map((h, i) => (
-          <div key={i} className="w-[2px] rounded-full bg-[#c7c7c7] shrink-0" style={{ height: h }} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ReviewerRow({ avatar, name }: { avatar: string; name: string }) {
-  return (
-    <div className="flex items-center gap-[7px]">
-      <ImageWithFallback src={avatar} alt={name} className="size-[24px] rounded-full object-cover shrink-0" />
-      <div className="flex flex-col gap-[1px] min-w-0">
-        <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[11px] leading-[13px] text-[#2c2c2c] truncate">{name}</p>
-        <StarRow size={9} />
-      </div>
-    </div>
-  );
-}
-
-function GridItem({ children, caption }: { children: React.ReactNode; caption?: string }) {
-  return (
-    <div className="mb-[10px]">
-      {children}
-      {caption && (
-        <p className="mt-[6px] px-[2px] font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#9a9a9a]">{caption}</p>
-      )}
-    </div>
-  );
-}
-
-function InfoCard({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-[10px] border border-[#ececec] bg-white p-[10px] flex flex-col gap-[8px]">{children}</div>
-  );
-}
-
-function PhotoBlock({ src, alt, aspect = "3 / 4" }: { src: string; alt: string; aspect?: string }) {
-  return (
-    <div className="rounded-[10px] overflow-hidden bg-[#f0f0f0]" style={{ aspectRatio: aspect }}>
-      <ImageWithFallback src={src} alt={alt} className="size-full object-cover" />
-    </div>
-  );
-}
-
-function StoryBlock({ src, alt, title, aspect = "3 / 4" }: { src: string; alt: string; title: string; aspect?: string }) {
-  return (
-    <div className="relative rounded-[10px] overflow-hidden bg-[#f0f0f0]" style={{ aspectRatio: aspect }}>
-      <ImageWithFallback src={src} alt={alt} className="size-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-[10px]">
-        <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[8px] tracking-[0.08em] uppercase text-white/80 mb-[2px]">
-          Historias de corredores
-        </p>
-        <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] leading-[17px] text-white">{title}</p>
-      </div>
-    </div>
-  );
-}
-
-const avatar = (seed: string) => `https://i.pravatar.cc/64?u=${seed}`;
-const photo = (seed: string, w = 300, h = 400) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
-
 export function PlanLoading({ onDone }: { onDone: () => void }) {
   const [progress, setProgress] = useState(0);
 
@@ -170,76 +88,8 @@ export function PlanLoading({ onDone }: { onDone: () => void }) {
           </p>
         </div>
 
-        <div className="px-[16px] pb-[32px] flex items-start gap-[10px]">
-          {/* Column 1 */}
-          <div className="flex-1 min-w-0 flex flex-col">
-            <GridItem caption="Mayo 3, 2026">
-              <InfoCard>
-                <ReviewerRow avatar={avatar("maria-salasar")} name="María Salasar" />
-                <Waveform />
-              </InfoCard>
-            </GridItem>
-
-            <GridItem>
-              <StoryBlock src={photo("olivia-jake")} alt="Olivia y Jake" title="Olivia y Jake" />
-            </GridItem>
-
-            <GridItem>
-              <InfoCard>
-                <ReviewerRow avatar={avatar("carlos-guzman")} name="Carlos Guzman" />
-                <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] leading-[15px] text-[#6a6a6a]">
-                  Lo había dejado hace dos años. Pensaba que ya no era para mí. Pero con alguien de tu lado es diferente.
-                </p>
-              </InfoCard>
-            </GridItem>
-
-            <GridItem caption="Enero 10, 2026">
-              <PhotoBlock src={photo("carlos-guzman-beach", 300, 320)} alt="Carlos Guzman" aspect="3 / 2.6" />
-            </GridItem>
-          </div>
-
-          {/* Column 2 */}
-          <div className="flex-1 min-w-0 flex flex-col">
-            <GridItem>
-              <PhotoBlock src={photo("runner-055", 300, 460)} alt="Corredora con dorsal" aspect="3 / 4.6" />
-            </GridItem>
-
-            <GridItem>
-              <InfoCard>
-                <ReviewerRow avatar={avatar("teresa-gutierrez")} name="Teresa Gutierrez" />
-                <Waveform />
-              </InfoCard>
-            </GridItem>
-
-            <GridItem caption="Mayo 3, 2026">
-              <PhotoBlock src={photo("runner-woman", 300, 260)} alt="Corredora" aspect="3 / 2.6" />
-            </GridItem>
-
-            <GridItem>
-              <PhotoBlock src={photo("group-run", 300, 240)} alt="Grupo corriendo" aspect="3 / 2.4" />
-            </GridItem>
-          </div>
-
-          {/* Column 3 */}
-          <div className="flex-1 min-w-0 flex flex-col">
-            <GridItem>
-              <InfoCard>
-                <ReviewerRow avatar={avatar("pepe-trueno")} name="Pepe Trueno" />
-                <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] leading-[15px] text-[#6a6a6a]">
-                  Llevaba años diciéndome que iba a empezar a correr. Mi mentor no me presionó, solo me ayudó a dar el primer paso. La
-                  primera semana solo corrí 10 minutos y me dijo que era suficiente.
-                </p>
-              </InfoCard>
-            </GridItem>
-
-            <GridItem caption="Enero 10, 2026">
-              <PhotoBlock src={photo("pepe-running", 300, 340)} alt="Pepe Trueno corriendo" aspect="3 / 3.4" />
-            </GridItem>
-
-            <GridItem>
-              <StoryBlock src={photo("maria-ortiz")} alt="Maria Ortiz" title="Maria Ortiz" />
-            </GridItem>
-          </div>
+        <div className="px-[16px] pb-[32px]">
+          <img src={imgTestimonios} alt="Testimonios de otros corredores" className="w-full h-auto" />
         </div>
       </div>
     </div>
