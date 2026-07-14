@@ -80,7 +80,7 @@ export function PlanLoading({ onDone }: { onDone: () => void }) {
 
         {/* Social proof */}
         <div className="px-[24px] mb-[20px] text-center">
-          <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[34px] text-[#2c2c2c] text-[28px] mb-[10px]">
+          <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[42px] text-[#2c2c2c] text-[36px] mb-[10px]">
             Ellos también
             <br />
             empezaron aquí
