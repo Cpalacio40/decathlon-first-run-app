@@ -89,7 +89,9 @@ export function PlanLoading({ onDone }: { onDone: () => void }) {
         </div>
 
         <div className="px-[16px] pb-[32px]">
-          <img src={imgTestimonios} alt="Testimonios de otros corredores" className="w-full h-auto" />
+          <div className="overflow-hidden" style={{ height: 300 }}>
+            <img src={imgTestimonios} alt="Testimonios de otros corredores" className="w-full h-auto" />
+          </div>
         </div>
       </div>
     </div>
