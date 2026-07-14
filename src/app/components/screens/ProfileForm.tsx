@@ -293,7 +293,7 @@ function DateField({ value, onOpen, inputClass }: { value: Date | null; onOpen: 
       <button type="button" onClick={onOpen} className={`${inputClass} pr-[44px] flex items-center text-left`}>
         <span className={value ? "text-[#111]" : "text-[#b0b0b0]"}>{value ? formatDate(value) : "DD/MM/AAAA"}</span>
       </button>
-      <Calendar size={20} className="absolute right-[14px] top-1/2 -translate-y-1/2 text-[#3643ba] pointer-events-none" />
+      <Calendar size={20} className="absolute right-[14px] top-1/2 -translate-y-1/2 text-[#111] pointer-events-none" />
     </div>
   );
 }
