@@ -191,7 +191,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
           {/* Plan pill */}
           <div className="flex items-center justify-center gap-[8px] rounded-[8px] bg-[#eceef9] py-[14px] px-[16px] mb-[16px]">
             <NotebookPen size={18} className="text-[#3643ba] shrink-0" />
-            <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#3643ba]">Plan de {nombreCompleto}</span>
+            <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[22px] text-[#3643ba]">Plan de {nombreCompleto}</span>
           </div>
 
           {/* Summary card */}
@@ -204,7 +204,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
 
           {/* Section pill */}
           <div className="rounded-[8px] bg-[#eceef9] py-[12px] px-[16px] mb-[16px]">
-            <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#3643ba] text-center">Cómo alcanzar tus objetivos</p>
+            <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[22px] text-[#3643ba] text-center">Cómo alcanzar tus objetivos</p>
           </div>
 
           <div className="flex flex-col gap-[12px] mb-[28px]">
