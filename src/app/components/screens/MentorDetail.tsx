@@ -1,7 +1,7 @@
 import { Play, Music } from "lucide-react";
 import svgPaths from "../../../imports/IPhone131423/svg-cg0jrywrs1";
 import { PressableButton } from "../PressableButton";
-import imgLaura from "../../../imports/foto laura.png";
+import { getMentor, type MentorId } from "../../lib/mentors";
 
 function MapPinnedIcon({ size = 17 }: { size?: number }) {
   return (
@@ -30,7 +30,7 @@ function InfoSection({ title, description }: { title: string; description: strin
   );
 }
 
-function SongCard() {
+function SongCard({ title, artist, blurb }: { title: string; artist: string; blurb: string }) {
   return (
     <div className="flex items-center gap-[14px] rounded-[12px] border border-[#ececec] p-[16px] mb-[24px]">
       <div className="flex items-center justify-center size-[40px] rounded-[10px] bg-[#3643ba] text-white shrink-0">
@@ -38,10 +38,10 @@ function SongCard() {
       </div>
       <div className="flex-1 min-w-0">
         <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] leading-[19px] text-[#2c2c2c] mb-[4px]">
-          &ldquo;Square Hammer&rdquo; — Ghost
+          &ldquo;{title}&rdquo; — {artist}
         </p>
         <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] leading-[17px] text-[#8a8a8a]">
-          Lo doy todo en esos 4:00 minutos
+          {blurb}
         </p>
       </div>
     </div>
@@ -66,13 +66,15 @@ function GroupRunItem({ title, subtitle, isLast }: { title: string; subtitle: st
   );
 }
 
-export function MentorDetail({ onBack, onSchedule }: { onBack: () => void; onSchedule: () => void }) {
+export function MentorDetail({ mentorId, onBack, onSchedule }: { mentorId: MentorId; onBack: () => void; onSchedule: () => void }) {
+  const mentor = getMentor(mentorId);
+
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Detalle mentor">
       <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
         {/* Hero photo */}
         <div className="relative h-[420px] w-full bg-[#f5f5f5] shrink-0">
-          <img src={imgLaura} alt="Laura Luz Villalba" className="absolute inset-0 size-full object-cover" style={{ objectPosition: "50% 20%" }} />
+          <img src={mentor.heroImage} alt={mentor.name} className="absolute inset-0 size-full object-cover" style={{ objectPosition: mentor.heroFocus }} />
 
           <PressableButton onClick={onBack} className="absolute top-[24px] left-[16px] z-10 block size-[32px] shrink-0">
             <div className="absolute inset-[20.83%]">
@@ -91,30 +93,25 @@ export function MentorDetail({ onBack, onSchedule }: { onBack: () => void; onSch
 
         <div className="px-[24px] pt-[24px] pb-[24px]">
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[28px] leading-[32px] text-[#2c2c2c] mb-[24px]">
-            Laura Luz Villalba
+            {mentor.name}
           </p>
 
-          <InfoSection
-            title="Sobre mí"
-            description="Entreno a personas que quieren resultados reales, no motivación vacía. Cada sesión contigo tiene un propósito claro, te diré exactamente qué hacemos, por qué y qué vas a notar al terminar."
-          />
-          <InfoSection title="Estilo de entrenamiento" description="Estructurado y directo." />
-          <InfoSection
-            title="Lo que más me importa"
-            description="Que sepas exactamente cómo vas. No hay progreso invisible si avanzas, lo vamos a ver juntos."
-          />
+          <InfoSection title="Sobre mí" description={mentor.about} />
+          <InfoSection title="Estilo de entrenamiento" description={mentor.trainingStyle} />
+          <InfoSection title="Lo que más me importa" description={mentor.important} />
 
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[18px] leading-[22px] text-[#2c2c2c] mb-[8px]">
             Canción para arrancar
           </p>
-          <SongCard />
+          <SongCard title={mentor.song.title} artist={mentor.song.artist} blurb={mentor.song.blurb} />
 
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[18px] leading-[22px] text-[#2c2c2c] mb-[8px]">
             Salidas grupales
           </p>
           <div className="flex flex-col">
-            <GroupRunItem title="Martes y jueves" subtitle="17:00h · Parque del Retiro, Madrid" />
-            <GroupRunItem title="Sábados" subtitle="9:00h · Parque del Retiro, Madrid" isLast />
+            {mentor.groupRuns.map((run, i) => (
+              <GroupRunItem key={run.title} title={run.title} subtitle={run.subtitle} isLast={i === mentor.groupRuns.length - 1} />
+            ))}
           </div>
         </div>
       </div>

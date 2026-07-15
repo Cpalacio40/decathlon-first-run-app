@@ -24,11 +24,15 @@ function DetailRow({ icon, children, isLast }: { icon: React.ReactNode; children
 }
 
 export function MentorScheduled({
+  mentorName,
+  mentorRole,
   onAccept,
   onBack,
   date,
   time,
 }: {
+  mentorName: string;
+  mentorRole: string;
   onAccept: () => void;
   onBack: () => void;
   date: Date;
@@ -40,7 +44,7 @@ export function MentorScheduled({
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Mentoria agendada">
       {/* Header */}
-      <div className="relative flex items-center justify-center px-[16px] pt-[24px] pb-[12px] shrink-0">
+      <div className="relative flex items-center justify-center h-[101px] px-[16px] py-[12px] mt-[24px] shrink-0">
         <PressableButton onClick={onBack} className="absolute left-[16px] z-10 block size-[32px] shrink-0">
           <div className="absolute inset-[20.83%]">
             <div className="absolute inset-[-7.14%]">
@@ -75,9 +79,9 @@ export function MentorScheduled({
             <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[16px] leading-[20px] text-[#3643ba] mb-[16px]">
               Detalles de la sesión
             </p>
-            <DetailRow icon={<IdCard size={18} />}>Laura Luz (Mentora)</DetailRow>
+            <DetailRow icon={<IdCard size={18} />}>{mentorName} ({mentorRole})</DetailRow>
             <DetailRow icon={<CalendarDays size={18} />}>{timeRange}, {dateLabel}</DetailRow>
-            <DetailRow icon={<Globe size={18} />}>Europa central/Valencia</DetailRow>
+            <DetailRow icon={<Globe size={18} />}>Europa central/Madrid</DetailRow>
             <DetailRow icon={<Video size={18} />} isLast>Online</DetailRow>
           </div>
         </div>

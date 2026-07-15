@@ -19,6 +19,7 @@ import { Mentors } from "./components/screens/Mentors";
 import { MentorDetail } from "./components/screens/MentorDetail";
 import { MentorSchedule } from "./components/screens/MentorSchedule";
 import { MentorScheduled } from "./components/screens/MentorScheduled";
+import { getMentor, type MentorId } from "./lib/mentors";
 
 type Screen =
   | "splash"
@@ -69,6 +70,7 @@ export default function App() {
   const [debugOpen, setDebugOpen] = useState(true);
   const [scheduledDate, setScheduledDate] = useState(new Date());
   const [scheduledTime, setScheduledTime] = useState("11:00");
+  const [selectedMentorId, setSelectedMentorId] = useState<MentorId>("laura");
 
   const go = (next: Screen) => {
     const a = ORDER.indexOf(screen);
@@ -111,12 +113,21 @@ export default function App() {
       case "planReady":
         return <PlanReady onContinue={() => go("mentors")} onBack={() => go("motivations")} />;
       case "mentors":
-        return <Mentors onBack={() => go("planReady")} onOpenMentorDetail={() => go("mentorDetail")} />;
+        return (
+          <Mentors
+            onBack={() => go("planReady")}
+            onOpenMentorDetail={(mentorId) => {
+              setSelectedMentorId(mentorId);
+              go("mentorDetail");
+            }}
+          />
+        );
       case "mentorDetail":
-        return <MentorDetail onBack={() => go("mentors")} onSchedule={() => go("mentorSchedule")} />;
+        return <MentorDetail mentorId={selectedMentorId} onBack={() => go("mentors")} onSchedule={() => go("mentorSchedule")} />;
       case "mentorSchedule":
         return (
           <MentorSchedule
+            mentorName={getMentor(selectedMentorId).name}
             onBack={() => go("mentorDetail")}
             onContinue={(date, time) => {
               setScheduledDate(date);
@@ -128,6 +139,8 @@ export default function App() {
       case "mentorScheduled":
         return (
           <MentorScheduled
+            mentorName={getMentor(selectedMentorId).name}
+            mentorRole={getMentor(selectedMentorId).role}
             date={scheduledDate}
             time={scheduledTime}
             onBack={() => go("mentorSchedule")}

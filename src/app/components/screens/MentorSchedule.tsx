@@ -111,9 +111,11 @@ function TimePicker({ value, onChange }: { value: string; onChange: (v: string) 
 }
 
 export function MentorSchedule({
+  mentorName,
   onBack,
   onContinue,
 }: {
+  mentorName: string;
   onBack: () => void;
   onContinue: (date: Date, time: string) => void;
 }) {
@@ -197,7 +199,7 @@ export function MentorSchedule({
           </p>
 
           <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[16px] leading-[20px] text-[#2c2c2c] text-center mb-[2px]">
-            Mentorías Laura Luz – 30 min
+            Mentorías {mentorName} – 30 min
           </p>
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#8a8a8a] text-center mb-[16px]">
             (GMT+02:00) Hora de Europa central – Madrid

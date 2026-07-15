@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, LineChart, Target, Award, Flag, Flame, Trophy, Users, Users2, Shuffle, Footprints, Leaf, Sparkles } from "lucide-react";
+import { Check } from "lucide-react";
 import svgPaths from "../../../imports/IPhone131423/svg-cg0jrywrs1";
 import { PressableButton } from "../PressableButton";
-import imgLaura from "../../../imports/card-product 1.png";
-import imgMarco from "../../../imports/card-product 2.png";
-import imgAnna from "../../../imports/card-product 3.png";
-import imgLeo from "../../../imports/card-product 4.png";
+import { MENTORS, type MentorId, type Mentor } from "../../lib/mentors";
 
 function NotepadTextIcon({ size = 22 }: { size?: number }) {
   return (
@@ -73,72 +70,12 @@ function Tag({ icon, label }: { icon: React.ReactNode; label: string }) {
   );
 }
 
-type MentorId = "laura" | "marco" | "anna" | "leo";
-
-const MENTORS: {
-  id: MentorId;
-  name: string;
-  subtitle: string;
-  image: string;
-  focus: string;
-  tags: { icon: React.ReactNode; label: string }[];
-}[] = [
-  {
-    id: "laura",
-    name: "Laura Luz Villalba",
-    subtitle: "Planes Progresivos y medibles",
-    image: imgLaura,
-    focus: "20% 15%",
-    tags: [
-      { icon: <LineChart size={13} />, label: "Estructura" },
-      { icon: <Target size={13} />, label: "Tecnica" },
-      { icon: <Award size={13} />, label: "Resultados" },
-    ],
-  },
-  {
-    id: "marco",
-    name: "Marco Antonio Vidal",
-    subtitle: "Superar tus limites mentales",
-    image: imgMarco,
-    focus: "25% 10%",
-    tags: [
-      { icon: <Flag size={13} />, label: "Retos" },
-      { icon: <Flame size={13} />, label: "Intensidad" },
-      { icon: <Trophy size={13} />, label: "Gamificación" },
-    ],
-  },
-  {
-    id: "anna",
-    name: "Anna Sofia Palomares",
-    subtitle: "Especialista en dinámicas de grupo",
-    image: imgAnna,
-    focus: "22% 15%",
-    tags: [
-      { icon: <Users size={13} />, label: "Social" },
-      { icon: <Users2 size={13} />, label: "Grupal" },
-      { icon: <Shuffle size={13} />, label: "Dinamico" },
-    ],
-  },
-  {
-    id: "leo",
-    name: "Leo David Arroyo",
-    subtitle: "Especialista en running consciente",
-    image: imgLeo,
-    focus: "25% 10%",
-    tags: [
-      { icon: <Footprints size={13} />, label: "Desconexión" },
-      { icon: <Leaf size={13} />, label: "Bienestar" },
-      { icon: <Sparkles size={13} />, label: "Mindfulness" },
-    ],
-  },
-];
-
 function MentorCard({
   mentor,
   selected,
   onSelect,
 }: {
-  mentor: (typeof MENTORS)[number];
+  mentor: Mentor;
   selected: boolean;
   onSelect: () => void;
 }) {
@@ -151,10 +88,10 @@ function MentorCard({
     >
       <div className="relative h-[240px] w-full bg-[#f5f5f5]">
         <img
-          src={mentor.image}
+          src={mentor.cardImage}
           alt={mentor.name}
           className="absolute inset-0 size-full object-cover"
-          style={{ objectPosition: mentor.focus }}
+          style={{ objectPosition: mentor.cardFocus }}
         />
         <div
           className="absolute inset-0"
@@ -193,7 +130,7 @@ export function Mentors({
   onOpenMentorDetail,
 }: {
   onBack: () => void;
-  onOpenMentorDetail: () => void;
+  onOpenMentorDetail: (mentorId: MentorId) => void;
 }) {
   const [collapsed, setCollapsed] = useState(false);
   const [selected, setSelected] = useState<MentorId | null>(null);
@@ -272,7 +209,7 @@ export function Mentors({
       {/* Fixed footer */}
       <div className="shrink-0 bg-white px-[28px] pt-[17px] pb-[48px] border-t border-[#f0f0f0]">
         <PressableButton
-          onClick={onOpenMentorDetail}
+          onClick={() => selected && onOpenMentorDetail(selected)}
           disabled={!selected}
           interactive={!!selected}
           className={`w-full h-[48px] rounded-[6px] flex items-center justify-center transition-colors ${selected ? "bg-[#3643ba]" : "bg-[#d9d9d9]"}`}
