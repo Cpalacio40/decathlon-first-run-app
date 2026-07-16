@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, CalendarDays, Bell, ChevronRight, Home as HomeIcon, LineChart, IdCard, Footprints, Flame } from "lucide-react";
+import { User, CalendarDays, Bell, ChevronRight, Home as HomeIcon, LineChart, IdCard, Footprints } from "lucide-react";
 import { PressableButton } from "../PressableButton";
 import { getMentor, type MentorId } from "../../lib/mentors";
 import { loadProfile } from "../../lib/profileStorage";
@@ -31,6 +31,22 @@ function formatTime12(time: string) {
   const period = h >= 12 ? "pm" : "am";
   const h12 = h % 12 === 0 ? 12 : h % 12;
   return `${h12}:${String(m).padStart(2, "0")}${period}`;
+}
+
+function StreakIcon({ size = 24 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="3.73333" fill="#D9D9D9" />
+      <path
+        d="M13.9996 5.6C14.6219 8.08889 15.8663 10.1111 17.733 11.6667C19.5996 13.2222 20.533 14.9333 20.533 16.8C20.533 18.5327 19.8446 20.1945 18.6194 21.4198C17.3942 22.645 15.7324 23.3333 13.9996 23.3333C12.2669 23.3333 10.6051 22.645 9.37988 21.4198C8.15464 20.1945 7.46631 18.5327 7.46631 16.8C7.46631 15.7903 7.79381 14.8078 8.39964 14C8.39964 14.6188 8.64547 15.2123 9.08306 15.6499C9.52064 16.0875 10.1141 16.3333 10.733 16.3333C11.3518 16.3333 11.9453 16.0875 12.3829 15.6499C12.8205 15.2123 13.0663 14.6188 13.0663 14C13.0663 12.1333 11.6663 11.2 11.6663 9.33333C11.6663 8.08889 12.4441 6.84444 13.9996 5.6Z"
+        fill="white"
+        stroke="white"
+        strokeWidth="1.86667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 function DayCell({ label, day, selected, hasEvent }: { label: string; day: number; selected: boolean; hasEvent: boolean }) {
@@ -158,7 +174,7 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
               ¡Hola {nombre}!
             </p>
             <div className="flex items-center gap-[8px] rounded-[10px] ring-1 ring-[#ececec] px-[12px] py-[6px] shrink-0">
-              <Flame size={16} className="text-[#8a8a8a]" />
+              <StreakIcon size={24} />
               <div className="flex flex-col items-start leading-none">
                 <span className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] text-[#2c2c2c]">0</span>
                 <span className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[9px] text-[#8a8a8a]">Semanas</span>
