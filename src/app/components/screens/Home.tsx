@@ -67,7 +67,7 @@ function DayCell({
       <div className={`size-[5px] rounded-full ${hasEvent ? "bg-[#3643ba]" : "bg-transparent"}`} />
       <div
         className={`flex w-[40px] flex-col items-center justify-center gap-[2px] rounded-[10px] py-[8px] transition-colors ${
-          selected ? "bg-[#3643ba]" : "bg-white ring-1 ring-[#ececec]"
+          selected ? "bg-[#3643ba]" : past ? "bg-[#f5f5f5] ring-1 ring-[#ececec]" : "bg-white ring-1 ring-[#ececec]"
         }`}
       >
         <span
@@ -75,7 +75,7 @@ function DayCell({
             selected
               ? "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-white/80"
               : past
-              ? "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#d9d9d9]"
+              ? "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#b3b3b3]"
               : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#8a8a8a]"
           }
         >
@@ -86,7 +86,7 @@ function DayCell({
             selected
               ? "font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] text-white"
               : past
-              ? "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#d9d9d9]"
+              ? "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#b3b3b3]"
               : "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#2c2c2c]"
           }
         >
