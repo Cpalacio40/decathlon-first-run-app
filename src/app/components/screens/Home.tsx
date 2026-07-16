@@ -67,7 +67,7 @@ function DayCell({
       <div className={`size-[5px] rounded-full ${hasEvent ? "bg-[#3643ba]" : "bg-transparent"}`} />
       <div
         className={`flex w-[40px] flex-col items-center justify-center gap-[2px] rounded-[10px] py-[8px] transition-colors ${
-          selected ? "bg-[#3643ba]" : past ? "bg-[#f5f5f5] ring-1 ring-[#ececec]" : "bg-white ring-1 ring-[#ececec]"
+          selected ? "bg-[#3643ba]" : past ? "bg-[#f5f5f5]" : "bg-white ring-1 ring-[#ececec]"
         }`}
       >
         <span
