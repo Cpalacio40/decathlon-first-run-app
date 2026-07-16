@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { User, CalendarDays, Bell, ChevronRight, Home as HomeIcon, LineChart, IdCard, Footprints } from "lucide-react";
 import { PressableButton } from "../PressableButton";
 import { getMentor, type MentorId } from "../../lib/mentors";
@@ -7,6 +7,9 @@ import { loadProfile } from "../../lib/profileStorage";
 const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const WEEKDAYS_FULL = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const WEEKDAYS_SHORT = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+const DAY_CELL_WIDTH = 40;
+const DAY_CELL_GAP = 10;
+const DAY_CELL_STRIDE = DAY_CELL_WIDTH + DAY_CELL_GAP;
 
 function isSameDay(a: Date, b: Date) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -66,7 +69,7 @@ function DayCell({
   past: boolean;
 }) {
   return (
-    <div className="flex shrink-0 flex-col items-center gap-[4px]">
+    <div className="flex shrink-0 snap-start flex-col items-center gap-[4px]">
       <div className={`size-[5px] rounded-full ${hasEvent ? "bg-[#3643ba]" : "bg-transparent"}`} />
       <div
         className={`flex w-[40px] flex-col items-center justify-center gap-[2px] rounded-[10px] py-[8px] transition-colors ${
@@ -169,6 +172,23 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
 
   const [collapsed, setCollapsed] = useState(false);
 
+  const weekStripRef = useRef<HTMLDivElement>(null);
+  const [weekStripWidth, setWeekStripWidth] = useState<number>();
+
+  useEffect(() => {
+    const el = weekStripRef.current;
+    if (!el) return;
+    const measure = () => {
+      const available = el.parentElement?.clientWidth ?? el.clientWidth;
+      const visibleCells = Math.max(1, Math.floor((available + DAY_CELL_GAP) / DAY_CELL_STRIDE));
+      setWeekStripWidth(visibleCells * DAY_CELL_STRIDE - DAY_CELL_GAP);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el.parentElement ?? el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Inicio">
       <div
@@ -217,20 +237,23 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[22px] text-[#8a8a8a] -mt-[20px] mb-[20px]">{monthLabel}</p>
 
           {/* Week strip */}
-          <div
-            className="flex items-start gap-[10px] overflow-x-auto -mx-[24px] px-[24px] mb-[20px] [&::-webkit-scrollbar]:hidden"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {calendarDays.map((d) => (
-              <DayCell
-                key={d.toISOString()}
-                label={WEEKDAYS_SHORT[d.getDay()]}
-                day={d.getDate()}
-                selected={isSameDay(d, today)}
-                hasEvent={isSameDay(d, date)}
-                past={d < new Date(today.getFullYear(), today.getMonth(), today.getDate())}
-              />
-            ))}
+          <div className="-mx-[24px] px-[24px] mb-[20px]">
+            <div
+              ref={weekStripRef}
+              className="flex items-start gap-[10px] overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none", width: weekStripWidth }}
+            >
+              {calendarDays.map((d) => (
+                <DayCell
+                  key={d.toISOString()}
+                  label={WEEKDAYS_SHORT[d.getDay()]}
+                  day={d.getDate()}
+                  selected={isSameDay(d, today)}
+                  hasEvent={isSameDay(d, date)}
+                  past={d < new Date(today.getFullYear(), today.getMonth(), today.getDate())}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
