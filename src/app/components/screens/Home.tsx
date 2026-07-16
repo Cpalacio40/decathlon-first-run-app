@@ -10,6 +10,7 @@ const WEEKDAYS_SHORT = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 const DAY_CELL_WIDTH = 40;
 const DAY_CELL_GAP = 10;
 const DAY_CELL_STRIDE = DAY_CELL_WIDTH + DAY_CELL_GAP;
+const VISIBLE_DAYS = 7;
 
 function isSameDay(a: Date, b: Date) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -180,7 +181,8 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
     if (!el) return;
     const measure = () => {
       const available = el.parentElement?.clientWidth ?? el.clientWidth;
-      const visibleCells = Math.max(1, Math.floor((available + DAY_CELL_GAP) / DAY_CELL_STRIDE));
+      const maxCellsThatFit = Math.max(1, Math.floor((available + DAY_CELL_GAP) / DAY_CELL_STRIDE));
+      const visibleCells = Math.min(VISIBLE_DAYS, maxCellsThatFit);
       setWeekStripWidth(visibleCells * DAY_CELL_STRIDE - DAY_CELL_GAP);
     };
     measure();
