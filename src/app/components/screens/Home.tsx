@@ -3,6 +3,15 @@ import { User, CalendarDays, Bell, ChevronRight, Home as HomeIcon, LineChart, Id
 import { PressableButton } from "../PressableButton";
 import { getMentor, type MentorId } from "../../lib/mentors";
 import { loadProfile } from "../../lib/profileStorage";
+import { loadMotivations } from "../../lib/motivationsStorage";
+
+const DEFAULT_SESSIONS_PER_WEEK = 3;
+
+function getSessionsPerWeek(frecuencia: string | null | undefined): number {
+  if (!frecuencia) return DEFAULT_SESSIONS_PER_WEEK;
+  const match = frecuencia.match(/\d+/);
+  return match ? Number(match[0]) : DEFAULT_SESSIONS_PER_WEEK;
+}
 
 const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const WEEKDAYS_FULL = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -162,6 +171,8 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
   const mentor = getMentor(mentorId);
   const profile = loadProfile();
   const nombre = profile?.nombre ?? "Camila";
+  const motivations = loadMotivations();
+  const sessionsPerWeek = getSessionsPerWeek(motivations?.frecuencia);
 
   const today = new Date();
   const mondayOfWeek = getMondayOfWeek(today);
@@ -301,17 +312,17 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
               <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[20px] leading-[24px] text-[#2c2c2c]">
                 Plan de la semana
               </p>
-              <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] text-[#2c2c2c]">0/3</span>
+              <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] text-[#2c2c2c]">0/{sessionsPerWeek}</span>
             </div>
             <div className="flex gap-[6px] mb-[20px]">
-              <div className="h-[4px] flex-1 rounded-full bg-[#ececec]" />
-              <div className="h-[4px] flex-1 rounded-full bg-[#ececec]" />
-              <div className="h-[4px] flex-1 rounded-full bg-[#ececec]" />
+              {Array.from({ length: sessionsPerWeek }, (_, i) => (
+                <div key={i} className="h-[4px] flex-1 rounded-full bg-[#ececec]" />
+              ))}
             </div>
             <div className="flex flex-col gap-[12px]">
-              <SessionCard index={1} active />
-              <SessionCard index={2} />
-              <SessionCard index={3} />
+              {Array.from({ length: sessionsPerWeek }, (_, i) => (
+                <SessionCard key={i} index={i + 1} active={i === 0} />
+              ))}
             </div>
           </div>
         </div>
