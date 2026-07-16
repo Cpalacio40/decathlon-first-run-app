@@ -226,7 +226,7 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
 
         <div className="px-[24px] pt-[20px]">
           {/* Greeting + streak */}
-          <div className="flex items-start justify-between gap-[12px] mb-[4px]">
+          <div className="flex items-start justify-between gap-[12px] mb-[2px]">
             <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[26px] leading-[30px] text-[#2c2c2c]">
               ¡Hola {nombre}!
             </p>
