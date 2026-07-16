@@ -176,8 +176,8 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
             <div className="flex items-center gap-[8px] rounded-[10px] ring-1 ring-[#ececec] px-[12px] py-[6px] shrink-0">
               <StreakIcon size={24} />
               <div className="flex flex-col items-start leading-none">
-                <span className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] text-[#2c2c2c]">0</span>
-                <span className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[9px] text-[#8a8a8a]">Semanas</span>
+                <span className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[22px] text-[#2c2c2c]">0</span>
+                <span className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[10px] text-[#8a8a8a]">Semanas</span>
               </div>
             </div>
           </div>
