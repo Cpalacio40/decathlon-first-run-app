@@ -278,7 +278,7 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
               }}
             />
             <div className="relative z-10 flex h-full max-w-[230px] flex-col justify-center p-[16px]">
-              <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[17px] leading-[20px] text-[#2c2c2c] mb-[6px]">
+              <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[20px] leading-[24px] text-[#2c2c2c] mb-[6px]">
                 {mentorFirstName}
               </p>
               <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#5c5c5c] mb-[2px]">
