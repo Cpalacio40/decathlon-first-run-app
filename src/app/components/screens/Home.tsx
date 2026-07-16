@@ -12,10 +12,13 @@ function isSameDay(a: Date, b: Date) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
 
-function getWeekDates(reference: Date) {
+function getMondayOfWeek(reference: Date) {
   const mondayOffset = (reference.getDay() + 6) % 7;
-  const monday = new Date(reference.getFullYear(), reference.getMonth(), reference.getDate() - mondayOffset);
-  return Array.from({ length: 7 }, (_, i) => new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i));
+  return new Date(reference.getFullYear(), reference.getMonth(), reference.getDate() - mondayOffset);
+}
+
+function getDaysRange(start: Date, count: number) {
+  return Array.from({ length: count }, (_, i) => new Date(start.getFullYear(), start.getMonth(), start.getDate() + i));
 }
 
 function addMinutes(time: string, minutes: number) {
@@ -63,7 +66,7 @@ function DayCell({
   past: boolean;
 }) {
   return (
-    <div className="flex flex-col items-center gap-[4px]">
+    <div className="flex shrink-0 flex-col items-center gap-[4px]">
       <div className={`size-[5px] rounded-full ${hasEvent ? "bg-[#3643ba]" : "bg-transparent"}`} />
       <div
         className={`flex w-[40px] flex-col items-center justify-center gap-[2px] rounded-[10px] py-[8px] transition-colors ${
@@ -155,7 +158,9 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
   const nombre = profile?.nombre ?? "Camila";
 
   const today = new Date();
-  const weekDates = getWeekDates(today);
+  const mondayOfWeek = getMondayOfWeek(today);
+  const daysToScheduled = Math.round((date.getTime() - mondayOfWeek.getTime()) / 86400000);
+  const calendarDays = getDaysRange(mondayOfWeek, Math.max(28, daysToScheduled + 14));
   const monthLabel = `${MONTHS[today.getMonth()]} ${today.getFullYear()}`;
 
   const mentorFirstName = mentor.name.split(" ").slice(0, 2).join(" ");
@@ -212,8 +217,11 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[22px] text-[#8a8a8a] -mt-[20px] mb-[20px]">{monthLabel}</p>
 
           {/* Week strip */}
-          <div className="flex items-start justify-between mb-[20px]">
-            {weekDates.map((d) => (
+          <div
+            className="flex items-start gap-[10px] overflow-x-auto -mx-[24px] px-[24px] mb-[20px] [&::-webkit-scrollbar]:hidden"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {calendarDays.map((d) => (
               <DayCell
                 key={d.toISOString()}
                 label={WEEKDAYS_SHORT[d.getDay()]}
