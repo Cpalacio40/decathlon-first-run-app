@@ -1,0 +1,238 @@
+import { User, CalendarDays, Bell, ChevronRight, Home as HomeIcon, LineChart, IdCard, Footprints, Flame } from "lucide-react";
+import { PressableButton } from "../PressableButton";
+import { getMentor, type MentorId } from "../../lib/mentors";
+import { loadProfile } from "../../lib/profileStorage";
+
+const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const WEEKDAYS_FULL = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const WEEKDAYS_SHORT = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+function isSameDay(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+function getWeekDates(reference: Date) {
+  const mondayOffset = (reference.getDay() + 6) % 7;
+  const monday = new Date(reference.getFullYear(), reference.getMonth(), reference.getDate() - mondayOffset);
+  return Array.from({ length: 7 }, (_, i) => new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i));
+}
+
+function addMinutes(time: string, minutes: number) {
+  const [h, m] = time.split(":").map(Number);
+  const total = h * 60 + m + minutes;
+  const eh = Math.floor(total / 60) % 24;
+  const em = total % 60;
+  return `${eh}:${String(em).padStart(2, "0")}`;
+}
+
+function formatTime12(time: string) {
+  const [h, m] = time.split(":").map(Number);
+  const period = h >= 12 ? "pm" : "am";
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}:${String(m).padStart(2, "0")}${period}`;
+}
+
+function DayCell({ label, day, selected, hasEvent }: { label: string; day: number; selected: boolean; hasEvent: boolean }) {
+  return (
+    <div className="flex flex-col items-center gap-[4px]">
+      <div className={`size-[5px] rounded-full ${hasEvent ? "bg-[#3643ba]" : "bg-transparent"}`} />
+      <div
+        className={`flex w-[40px] flex-col items-center justify-center gap-[2px] rounded-[10px] py-[8px] transition-colors ${
+          selected ? "bg-[#3643ba]" : ""
+        }`}
+      >
+        <span className={selected ? "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-white/80" : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#8a8a8a]"}>
+          {label}
+        </span>
+        <span className={selected ? "font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] text-white" : "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#2c2c2c]"}>
+          {day}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function SessionCard({ index, active }: { index: number; active?: boolean }) {
+  return (
+    <div
+      className={`flex items-center gap-[14px] rounded-[14px] p-[14px] transition-colors ${
+        active ? "ring-2 ring-[#3643ba]" : "ring-1 ring-[#ececec]"
+      }`}
+    >
+      <div
+        className={`flex items-center justify-center size-[40px] shrink-0 rounded-[10px] ${
+          active ? "bg-[#3643ba] text-white" : "bg-[#f0f0f0] text-[#c7c7c7]"
+        }`}
+      >
+        <Footprints size={19} />
+      </div>
+      <div className="min-w-0 flex-1">
+        <p
+          className={`font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[10px] uppercase tracking-[0.04em] mb-[2px] ${
+            active ? "text-[#3643ba]" : "text-[#c7c7c7]"
+          }`}
+        >
+          Sesión día {index}
+        </p>
+        <p
+          className={`font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] leading-[19px] ${
+            active ? "text-[#2c2c2c]" : "text-[#c7c7c7]"
+          }`}
+        >
+          Objetivos a completar
+        </p>
+      </div>
+      <ChevronRight size={18} className={active ? "text-[#2c2c2c]" : "text-[#d9d9d9]"} />
+    </div>
+  );
+}
+
+function NavItem({ icon, label, active }: { icon: React.ReactNode; label: string; active?: boolean }) {
+  return (
+    <div className={`flex flex-1 flex-col items-center gap-[4px] ${active ? "text-[#3643ba]" : "text-[#b3b3b3]"}`}>
+      {icon}
+      <span
+        className={
+          active
+            ? "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[11px]"
+            : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px]"
+        }
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date; time: string }) {
+  const mentor = getMentor(mentorId);
+  const profile = loadProfile();
+  const nombre = profile?.nombre ?? "Camila";
+
+  const today = new Date();
+  const weekDates = getWeekDates(today);
+  const monthLabel = `${MONTHS[today.getMonth()]} ${today.getFullYear()}`;
+
+  const mentorFirstName = mentor.name.split(" ").slice(0, 2).join(" ");
+  const dateLabel = `${WEEKDAYS_FULL[date.getDay()]}, ${date.getDate()} de ${MONTHS[date.getMonth()].toLowerCase()}`;
+  const timeRange = `${formatTime12(time)} – ${formatTime12(addMinutes(time, 30))}`;
+
+  return (
+    <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Inicio">
+      <div
+        className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <div className="px-[24px] pt-[28px]">
+          {/* Top icons */}
+          <div className="flex items-center justify-between mb-[20px]">
+            <PressableButton className="flex items-center justify-center size-[36px] rounded-full ring-1 ring-[#ececec] text-[#2c2c2c]">
+              <User size={18} />
+            </PressableButton>
+            <div className="flex items-center gap-[18px] text-[#2c2c2c]">
+              <PressableButton className="block">
+                <CalendarDays size={22} />
+              </PressableButton>
+              <PressableButton className="block">
+                <Bell size={22} />
+              </PressableButton>
+            </div>
+          </div>
+
+          {/* Greeting + streak */}
+          <div className="flex items-start justify-between gap-[12px] mb-[4px]">
+            <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[26px] leading-[30px] text-[#2c2c2c]">
+              ¡Hola {nombre}!
+            </p>
+            <div className="flex items-center gap-[8px] rounded-[10px] ring-1 ring-[#ececec] px-[12px] py-[6px] shrink-0">
+              <Flame size={16} className="text-[#8a8a8a]" />
+              <div className="flex flex-col items-start leading-none">
+                <span className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] text-[#2c2c2c]">0</span>
+                <span className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[9px] text-[#8a8a8a]">Semanas</span>
+              </div>
+            </div>
+          </div>
+          <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#8a8a8a] mb-[20px]">{monthLabel}</p>
+
+          {/* Week strip */}
+          <div className="flex items-start justify-between mb-[20px]">
+            {weekDates.map((d) => (
+              <DayCell
+                key={d.toISOString()}
+                label={WEEKDAYS_SHORT[d.getDay()]}
+                day={d.getDate()}
+                selected={isSameDay(d, today)}
+                hasEvent={isSameDay(d, date)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="h-px bg-[#f0f0f0] mx-[24px] mb-[20px]" />
+
+        <div className="px-[24px] pb-[24px] flex flex-col gap-[24px]">
+          {/* Mentor session card */}
+          <div className="relative w-full h-[140px] rounded-[16px] overflow-hidden bg-[#f5f5f5] ring-1 ring-[#ececec]">
+            <img
+              src={mentor.heroImage}
+              alt={mentor.name}
+              className="absolute inset-0 size-full object-cover"
+              style={{ objectPosition: mentor.heroFocus }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(245,245,245,0.97) 0%, rgba(245,245,245,0.9) 42%, rgba(245,245,245,0.15) 70%, rgba(245,245,245,0) 88%)",
+              }}
+            />
+            <div className="relative z-10 flex h-full max-w-[230px] flex-col justify-center p-[16px]">
+              <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[17px] leading-[20px] text-[#2c2c2c] mb-[6px]">
+                {mentorFirstName}
+              </p>
+              <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#5c5c5c] mb-[2px]">
+                {dateLabel}
+              </p>
+              <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[12px] leading-[16px] text-[#5c5c5c] mb-[10px]">
+                {timeRange}
+              </p>
+              <PressableButton className="self-start rounded-full bg-[#e4e4e4] px-[14px] py-[7px]">
+                <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[12px] text-[#2c2c2c]">Unirse a la sesión</span>
+              </PressableButton>
+            </div>
+          </div>
+
+          {/* Plan de la semana */}
+          <div>
+            <div className="flex items-center justify-between mb-[10px]">
+              <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[20px] leading-[24px] text-[#2c2c2c]">
+                Plan de la semana
+              </p>
+              <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[13px] text-[#2c2c2c]">0/3</span>
+            </div>
+            <div className="flex gap-[6px] mb-[20px]">
+              <div className="h-[4px] flex-1 rounded-full bg-[#ececec]" />
+              <div className="h-[4px] flex-1 rounded-full bg-[#ececec]" />
+              <div className="h-[4px] flex-1 rounded-full bg-[#ececec]" />
+            </div>
+            <div className="flex flex-col gap-[12px]">
+              <SessionCard index={1} active />
+              <SessionCard index={2} />
+              <SessionCard index={3} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom nav */}
+      <div className="shrink-0 bg-white border-t border-[#f0f0f0] px-[16px] pt-[10px] pb-[26px]">
+        <div className="flex items-center justify-between">
+          <NavItem icon={<HomeIcon size={22} />} label="Inicio" active />
+          <NavItem icon={<LineChart size={22} />} label="Progreso" />
+          <NavItem icon={<Footprints size={22} />} label="Correr" />
+          <NavItem icon={<IdCard size={22} />} label="Mentor" />
+        </div>
+      </div>
+    </div>
+  );
+}

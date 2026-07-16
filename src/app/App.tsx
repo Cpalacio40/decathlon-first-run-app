@@ -19,6 +19,7 @@ import { Mentors } from "./components/screens/Mentors";
 import { MentorDetail } from "./components/screens/MentorDetail";
 import { MentorSchedule } from "./components/screens/MentorSchedule";
 import { MentorScheduled } from "./components/screens/MentorScheduled";
+import { Home } from "./components/screens/Home";
 import { getMentor, type MentorId } from "./lib/mentors";
 
 type Screen =
@@ -40,6 +41,7 @@ type Screen =
   | "mentorDetail"
   | "mentorSchedule"
   | "mentorScheduled"
+  | "home"
   | "permissions";
 
 const ORDER: Screen[] = [
@@ -58,6 +60,7 @@ const ORDER: Screen[] = [
   "mentorDetail",
   "mentorSchedule",
   "mentorScheduled",
+  "home",
   "ticket",
   "manual",
   "camera",
@@ -144,9 +147,11 @@ export default function App() {
             date={scheduledDate}
             time={scheduledTime}
             onBack={() => go("mentorSchedule")}
-            onAccept={() => go("ticket")}
+            onAccept={() => go("home")}
           />
         );
+      case "home":
+        return <Home mentorId={selectedMentorId} date={scheduledDate} time={scheduledTime} />;
       case "ticket":
         return <TicketGuide onScan={() => go("camera")} onBack={() => go("subscription")} onManual={() => go("manual")} />;
       case "manual":
@@ -208,6 +213,7 @@ export default function App() {
     { id: "mentorDetail", label: "Detalle mentor" },
     { id: "mentorSchedule", label: "Agendar mentoría" },
     { id: "mentorScheduled", label: "Mentoría agendada" },
+    { id: "home", label: "Inicio" },
     { id: "ticket", label: "Ticket" },
     { id: "manual", label: "Código manual" },
     { id: "camera", label: "Cámara" },
