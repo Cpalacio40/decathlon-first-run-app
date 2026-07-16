@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { User, CalendarDays, Bell, ChevronRight, Home as HomeIcon, LineChart, IdCard, Footprints, Flame } from "lucide-react";
 import { PressableButton } from "../PressableButton";
 import { getMentor, type MentorId } from "../../lib/mentors";
@@ -117,15 +118,25 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
   const dateLabel = `${WEEKDAYS_FULL[date.getDay()]}, ${date.getDate()} de ${MONTHS[date.getMonth()].toLowerCase()}`;
   const timeRange = `${formatTime12(time)} – ${formatTime12(addMinutes(time, 30))}`;
 
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <div className="bg-white relative size-full flex flex-col overflow-hidden" data-name="Inicio">
       <div
+        onScroll={(e) => {
+          const top = e.currentTarget.scrollTop;
+          setCollapsed((prev) => (prev ? top > 12 : top > 36));
+        }}
         className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", overflowAnchor: "none" }}
       >
-        <div className="px-[24px] pt-[28px]">
-          {/* Top icons */}
-          <div className="flex items-center justify-between mb-[20px]">
+        {/* Sticky top icons */}
+        <div
+          className={`sticky top-0 z-10 bg-white px-[24px] pt-[28px] pb-[16px] border-b transition-all duration-300 ease-in-out ${
+            collapsed ? "border-[#f0f0f0]" : "border-transparent"
+          }`}
+        >
+          <div className="flex items-center justify-between">
             <PressableButton className="flex items-center justify-center size-[36px] rounded-full ring-1 ring-[#ececec] text-[#2c2c2c]">
               <User size={18} />
             </PressableButton>
@@ -138,7 +149,9 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
               </PressableButton>
             </div>
           </div>
+        </div>
 
+        <div className="px-[24px]">
           {/* Greeting + streak */}
           <div className="flex items-start justify-between gap-[12px] mb-[4px]">
             <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[26px] leading-[30px] text-[#2c2c2c]">
