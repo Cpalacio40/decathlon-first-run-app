@@ -181,7 +181,7 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
               </div>
             </div>
           </div>
-          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[22px] text-[#8a8a8a] mb-[20px]">{monthLabel}</p>
+          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[22px] text-[#8a8a8a] -mt-[20px] mb-[20px]">{monthLabel}</p>
 
           {/* Week strip */}
           <div className="flex items-start justify-between mb-[20px]">
