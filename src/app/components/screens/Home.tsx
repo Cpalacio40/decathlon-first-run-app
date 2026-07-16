@@ -290,7 +290,7 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
                 {timeRange}
               </p>
               <PressableButton className="self-start flex items-center justify-center rounded-[6px] bg-[#e4e4e4] px-[14px] py-[7px]">
-                <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[12px] text-white">Unirse a la sesión</span>
+                <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[12px] text-[#b3b3b3]">Unirse a la sesión</span>
               </PressableButton>
             </div>
           </div>
