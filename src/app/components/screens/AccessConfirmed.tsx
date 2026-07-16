@@ -20,7 +20,7 @@ export function AccessConfirmed({ onStart, trial = false }: { onStart: () => voi
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
-          className="size-[88px] rounded-full bg-white flex items-center justify-center mb-[28px]"
+          className="size-[88px] rounded-[20px] bg-white flex items-center justify-center mb-[28px]"
         >
           <motion.svg
             width="44" height="44" viewBox="0 0 44 44" fill="none"
