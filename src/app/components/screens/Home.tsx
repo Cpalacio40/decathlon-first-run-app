@@ -49,19 +49,47 @@ function StreakIcon({ size = 24 }: { size?: number }) {
   );
 }
 
-function DayCell({ label, day, selected, hasEvent }: { label: string; day: number; selected: boolean; hasEvent: boolean }) {
+function DayCell({
+  label,
+  day,
+  selected,
+  hasEvent,
+  past,
+}: {
+  label: string;
+  day: number;
+  selected: boolean;
+  hasEvent: boolean;
+  past: boolean;
+}) {
   return (
     <div className="flex flex-col items-center gap-[4px]">
       <div className={`size-[5px] rounded-full ${hasEvent ? "bg-[#3643ba]" : "bg-transparent"}`} />
       <div
         className={`flex w-[40px] flex-col items-center justify-center gap-[2px] rounded-[10px] py-[8px] transition-colors ${
-          selected ? "bg-[#3643ba]" : ""
+          selected ? "bg-[#3643ba]" : "bg-white ring-1 ring-[#ececec]"
         }`}
       >
-        <span className={selected ? "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-white/80" : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#8a8a8a]"}>
+        <span
+          className={
+            selected
+              ? "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-white/80"
+              : past
+              ? "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#d9d9d9]"
+              : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[11px] text-[#8a8a8a]"
+          }
+        >
           {label}
         </span>
-        <span className={selected ? "font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] text-white" : "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#2c2c2c]"}>
+        <span
+          className={
+            selected
+              ? "font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] text-white"
+              : past
+              ? "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#d9d9d9]"
+              : "font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[15px] text-[#2c2c2c]"
+          }
+        >
           {day}
         </span>
       </div>
@@ -192,6 +220,7 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
                 day={d.getDate()}
                 selected={isSameDay(d, today)}
                 hasEvent={isSameDay(d, date)}
+                past={d < new Date(today.getFullYear(), today.getMonth(), today.getDate())}
               />
             ))}
           </div>
