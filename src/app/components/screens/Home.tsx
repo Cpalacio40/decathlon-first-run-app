@@ -265,10 +265,10 @@ export function Home({ mentorId, date, time }: { mentorId: MentorId; date: Date;
           {/* Mentor session card */}
           <div className="relative w-full h-[140px] rounded-[16px] overflow-hidden bg-[#f5f5f5] ring-1 ring-[#ececec]">
             <img
-              src={mentor.heroImage}
+              src={mentor.cardImage}
               alt={mentor.name}
               className="absolute inset-0 size-full object-cover"
-              style={{ objectPosition: mentor.heroFocus }}
+              style={{ objectPosition: mentor.cardFocus }}
             />
             <div
               className="absolute inset-0"
