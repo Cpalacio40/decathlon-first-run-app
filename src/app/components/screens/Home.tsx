@@ -127,9 +127,11 @@ function SessionCard({ index, active }: { index: number; active?: boolean }) {
           Sesión día {index}
         </p>
         <p
-          className={`font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] leading-[19px] ${
-            active ? "text-[#2c2c2c]" : "text-[#c7c7c7]"
-          }`}
+          className={
+            active
+              ? "font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[15px] leading-[19px] text-[#2c2c2c]"
+              : "font-['Host_Grotesk:Regular',sans-serif] font-normal text-[15px] leading-[19px] text-[#c7c7c7]"
+          }
         >
           Objetivos a completar
         </p>
