@@ -51,7 +51,7 @@ function Step({ icon, label, compact }: { icon: React.ReactNode; label: string; 
 }
 
 const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-const WEEKDAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+const WEEKDAYS = ["LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB", "DOM"];
 
 const TIME_SLOTS = Array.from({ length: 21 }, (_, i) => {
   const totalMinutes = 8 * 60 + i * 30;
