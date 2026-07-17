@@ -13,7 +13,7 @@ function Label({ children }: { children: string }) {
   );
 }
 
-export function CreateAccount({ onNext }: { onNext: () => void }) {
+export function CreateAccount({ onNext }: { onNext: (email: string) => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
@@ -76,14 +76,14 @@ export function CreateAccount({ onNext }: { onNext: () => void }) {
               </PressableButton>
             </div>
             <div className="flex h-[20px] items-center w-full">
-              <p className="flex-1 font-['Host_Grotesk:Regular',sans-serif] font-normal leading-[16px] text-[#444] text-[12px]">La contraseña debe contener mas de 8 caracteres</p>
+              <p className="flex-1 font-['Host_Grotesk:Regular',sans-serif] font-normal leading-[16px] text-[#444] text-[12px]">La contraseña debe contener más de 8 caracteres</p>
             </div>
           </div>
 
           {/* Register */}
           <div className="flex items-center justify-center w-[332px]">
             <PressableButton
-              onClick={onNext}
+              onClick={() => onNext(email)}
               disabled={!valid}
               interactive={valid}
               className={`flex-1 h-[48px] min-w-px rounded-[6px] flex items-center justify-center px-[16px] py-[12px] transition-colors ${valid ? "bg-[#3643ba]" : "bg-[#d9d9d9]"}`}

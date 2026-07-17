@@ -17,7 +17,7 @@ function AppIcon() {
   );
 }
 
-export function PaymentSheet({ onConfirm, onCancel, trial = false }: { onConfirm: () => void; onCancel: () => void; trial?: boolean }) {
+export function PaymentSheet({ onConfirm, onCancel, trial = false, email = "camipalacio78@gmail.com" }: { onConfirm: () => void; onCancel: () => void; trial?: boolean; email?: string }) {
   // Simulate the "double click side button" confirmation.
   useEffect(() => {
     const t = setTimeout(onConfirm, 3600);
@@ -54,7 +54,7 @@ export function PaymentSheet({ onConfirm, onCancel, trial = false }: { onConfirm
             <AppIcon />
             <div className="flex-1">
               <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[17px] text-[#111] leading-[22px]">Decathlon Rookie</p>
-              <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] text-[#8a8a8a] leading-[17px]">Decathlon: Fitness y entrenamientos Subcripción</p>
+              <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] text-[#8a8a8a] leading-[17px]">Decathlon: Fitness y entrenamientos Suscripción</p>
             </div>
           </div>
 
@@ -82,7 +82,7 @@ export function PaymentSheet({ onConfirm, onCancel, trial = false }: { onConfirm
 
           <div className="h-px bg-[#e6e6e6]" />
 
-          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] text-[#8a8a8a] pt-[14px]">Cuenta: camipalacio78@gmail.com</p>
+          <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] text-[#8a8a8a] pt-[14px]">Cuenta: {email}</p>
         </div>
 
         {/* Confirm with side button */}

@@ -460,7 +460,7 @@ export function ProfileForm({ onContinue, onBack }: { onContinue: () => void; on
             </div>
           </div>
 
-          <Field label="Genero">
+          <Field label="Género">
             <div className="flex flex-col gap-[16px]">
               {GENDERS.map((g) => (
                 <button key={g.id} onClick={() => setGender(g.id)} className="flex items-center gap-[12px] text-left">

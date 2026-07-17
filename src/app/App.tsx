@@ -70,6 +70,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>("splash");
   const [dir, setDir] = useState(1);
   const [trial, setTrial] = useState(false);
+  const [accountEmail, setAccountEmail] = useState("camipalacio78@gmail.com");
   const [debugOpen, setDebugOpen] = useState(true);
   const [scheduledDate, setScheduledDate] = useState(new Date());
   const [scheduledTime, setScheduledTime] = useState("11:00");
@@ -89,7 +90,14 @@ export default function App() {
       case "walkthrough":
         return <Walkthrough onRegister={() => go("account")} onLogin={() => go("account")} />;
       case "account":
-        return <CreateAccount onNext={() => go("subscription")} />;
+        return (
+          <CreateAccount
+            onNext={(email) => {
+              setAccountEmail(email);
+              go("subscription");
+            }}
+          />
+        );
       case "subscription":
         return (
           <Subscription
@@ -102,7 +110,7 @@ export default function App() {
           />
         );
       case "payment":
-        return <PaymentSheet trial={trial} onConfirm={() => go("confirmed")} onCancel={() => go("subscription")} />;
+        return <PaymentSheet trial={trial} email={accountEmail} onConfirm={() => go("confirmed")} onCancel={() => go("subscription")} />;
       case "confirmed":
         return <AccessConfirmed trial={trial} onStart={() => go("profile")} />;
       case "profile":

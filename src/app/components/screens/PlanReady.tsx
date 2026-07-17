@@ -121,7 +121,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
   const [answers] = useState(() => loadMotivations());
   const [profile] = useState(() => loadProfile());
 
-  const objetivo = answers?.objetivo ?? "Crear Habito";
+  const objetivo = answers?.objetivo ?? "Crear hábito";
   const logros = answers?.logros ?? "Resistencia física";
   const motivacion = answers?.motivacion ?? "La compañía";
   const sesiones = answers?.tiempo && answers?.frecuencia ? `${answers.tiempo} / ${answers.frecuencia}` : "15 minutos / 2 veces por semana";
@@ -182,7 +182,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
 
         <div className="px-[29px] pt-[24px] pb-[32px]">
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[38px] text-[#2c2c2c] text-[32px] text-center mb-[12px]">
-            Tu plan Personalizado esta listo
+            Tu plan personalizado está listo
           </p>
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[14px] leading-[19px] text-[#8a8a8a] text-center mb-[44px]">
             Puedes editarlo en cualquier momento desde tu perfil, o regresar para ajustarlos ahora.

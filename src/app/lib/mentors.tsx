@@ -38,7 +38,7 @@ export const MENTORS: Mentor[] = [
     cardFocus: "20% 15%",
     tags: [
       { icon: <LineChart size={13} />, label: "Estructura" },
-      { icon: <Target size={13} />, label: "Tecnica" },
+      { icon: <Target size={13} />, label: "Técnica" },
       { icon: <Award size={13} />, label: "Resultados" },
     ],
     heroImage: imgLauraHero,
@@ -57,7 +57,7 @@ export const MENTORS: Mentor[] = [
     id: "marco",
     name: "Marco Antonio Vidal",
     role: "Mentor",
-    subtitle: "Superar tus limites mentales",
+    subtitle: "Superar tus límites mentales",
     cardImage: imgMarcoCard,
     cardFocus: "25% 10%",
     tags: [
@@ -87,7 +87,7 @@ export const MENTORS: Mentor[] = [
     tags: [
       { icon: <Users size={13} />, label: "Social" },
       { icon: <Users2 size={13} />, label: "Grupal" },
-      { icon: <Shuffle size={13} />, label: "Dinamico" },
+      { icon: <Shuffle size={13} />, label: "Dinámico" },
     ],
     heroImage: imgAnnaHero,
     heroFocus: "50% 20%",

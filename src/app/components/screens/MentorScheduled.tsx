@@ -4,7 +4,7 @@ import { DecathlonLogo } from "../DecathlonLogo";
 import { PressableButton } from "../PressableButton";
 
 const MONTHS = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-const WEEKDAYS = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+const WEEKDAYS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
 function addMinutes(time: string, minutes: number) {
   const [h, m] = time.split(":").map(Number);
@@ -69,7 +69,7 @@ export function MentorScheduled({
           </div>
 
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold leading-[30px] text-[#2c2c2c] text-[26px] text-center mb-[16px]">
-            Tu mentoria ha<br />sido agendada
+            Tu mentoría ha<br />sido agendada
           </p>
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[16px] leading-[22px] text-[#8a8a8a] text-center mb-[32px]">
             Se ha <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[#2c2c2c]">enviado una invitación</span> de calendario<br />a su dirección de correo electrónico.

@@ -80,7 +80,7 @@ export function Subscription({
 
       <div className="absolute flex flex-col gap-[24px] items-center left-[29px] top-[130px] w-[332px]">
         <p className="font-['Host_Grotesk:Bold',sans-serif] font-bold leading-[28px] text-[#2c2c2c] text-[24px] text-center w-full">
-          Comienza tu Subcripción
+          Comienza tu Suscripción
         </p>
 
         <div className="flex flex-col gap-[11px] items-start w-full">
@@ -179,7 +179,7 @@ export function Subscription({
                 className="bg-[#3643ba] flex items-center justify-center px-[10px] py-[8px] rounded-[6px]"
               >
                 <span className="font-['Host_Grotesk:Host_Grotesk',sans-serif] leading-[16px] text-[12px] text-white whitespace-nowrap">
-                  Canjear Codigo
+                  Canjear Código
                 </span>
               </PressableButton>
             </div>

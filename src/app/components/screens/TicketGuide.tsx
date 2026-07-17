@@ -83,7 +83,7 @@ export function TicketGuide({
             Asegúrate de capturar una imagen{" "}
           </p>
           <p className="leading-[20px]">
-            clara y completa del codigo de barra.
+            clara y completa del código de barra.
           </p>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function TicketGuide({
         {receiptImg}
       </div>
       <p className="-translate-x-1/2 absolute font-['Host_Grotesk:Host_Grotesk',sans-serif] text-[#444] text-[12px] text-center leading-[16px] left-[195px] top-[calc(40%+136.4px)] w-[332px] mx-[0px] my-[-6px]">
-        Ejemplo optimo
+        Ejemplo óptimo
       </p>
       <div className="absolute left-[calc(40%+9px)] size-[41px] top-[calc(60%+39.6px)]">
         <div className="absolute inset-[-34.63%]">

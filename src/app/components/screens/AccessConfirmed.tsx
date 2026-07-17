@@ -47,9 +47,9 @@ export function AccessConfirmed({ onStart, trial = false }: { onStart: () => voi
           <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[30px] leading-[34px] text-white mb-[10px]">¡Bienvenido a Decathlon Rookie!</p>
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[16px] leading-[22px] text-white/90">
             {trial ? (
-              <>Tu cuenta ya esta activa.<br />Disfruta tus <span className="font-['Host_Grotesk:Bold',sans-serif] font-bold">3 meses gratis</span></>
+              <>Tu cuenta ya está activa.<br />Disfruta tus <span className="font-['Host_Grotesk:Bold',sans-serif] font-bold">3 meses gratis</span></>
             ) : (
-              <>Tu cuenta ya esta activa.</>
+              <>Tu cuenta ya está activa.</>
             )}
           </p>
         </motion.div>
