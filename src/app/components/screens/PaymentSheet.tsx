@@ -53,7 +53,7 @@ export function PaymentSheet({ onConfirm, onCancel, trial = false }: { onConfirm
           <div className="flex items-center gap-[12px] pb-[14px]">
             <AppIcon />
             <div className="flex-1">
-              <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[17px] text-[#111] leading-[22px]">Decathlon First run</p>
+              <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[17px] text-[#111] leading-[22px]">Decathlon Rookie</p>
               <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] text-[#8a8a8a] leading-[17px]">Decathlon: Fitness y entrenamientos Subcripción</p>
             </div>
           </div>

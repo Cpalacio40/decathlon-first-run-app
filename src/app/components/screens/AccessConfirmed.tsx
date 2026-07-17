@@ -20,7 +20,7 @@ export function AccessConfirmed({ onStart, trial = false }: { onStart: () => voi
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
-          className="size-[88px] rounded-[20px] bg-white flex items-center justify-center mb-[28px]"
+          className="size-[88px] rounded-[20px] bg-[#3643ba] flex items-center justify-center mb-[28px]"
         >
           <motion.svg
             width="44" height="44" viewBox="0 0 44 44" fill="none"
@@ -29,7 +29,7 @@ export function AccessConfirmed({ onStart, trial = false }: { onStart: () => voi
           >
             <motion.path
               d="M10 23L19 32L34 13"
-              stroke="#3643BA"
+              stroke="#ffffff"
               strokeWidth="4"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -44,7 +44,7 @@ export function AccessConfirmed({ onStart, trial = false }: { onStart: () => voi
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[30px] leading-[34px] text-white mb-[10px]">¡Bienvenido a Decathlon First run!</p>
+          <p className="font-['Host_Grotesk:ExtraBold',sans-serif] font-extrabold text-[30px] leading-[34px] text-white mb-[10px]">¡Bienvenido a Decathlon Rookie!</p>
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[16px] leading-[22px] text-white/90">
             {trial ? (
               <>Tu cuenta ya esta activa.<br />Disfruta tus <span className="font-['Host_Grotesk:Bold',sans-serif] font-bold">3 meses gratis</span></>

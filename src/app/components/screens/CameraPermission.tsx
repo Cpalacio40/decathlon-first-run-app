@@ -134,7 +134,7 @@ export function CameraPermission({
       >
         <div className="relative w-full border-b-[0.5px] border-[rgba(60,60,67,0.36)]">
           <div className="flex flex-col gap-[2px] items-center p-[16px] text-black text-center">
-            <p className="leading-[22px] text-[17px] tracking-[-0.408px] w-full" style={{ fontWeight: 590 }}>“Decathlon First run” desea acceder a la cámara</p>
+            <p className="leading-[22px] text-[17px] tracking-[-0.408px] w-full" style={{ fontWeight: 590 }}>“Decathlon Rookie” desea acceder a la cámara</p>
             <p className="leading-[18px] text-[13px] tracking-[-0.078px] w-full">Necesitamos acceder a la cámara de tu teléfono para iniciar la verificación.</p>
           </div>
         </div>

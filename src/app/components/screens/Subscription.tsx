@@ -201,7 +201,7 @@ export function Subscription({
           </span>
           <span className="font-['Host_Grotesk:Medium',sans-serif] font-medium text-[12px]">
             después de tu período gratuito de membresía
-            Decathlon First run.
+            Decathlon Rookie.
           </span>
           <span className="text-[12px]">
             {" "}

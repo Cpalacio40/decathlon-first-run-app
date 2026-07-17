@@ -218,7 +218,7 @@ export function PlanReady({ onContinue, onBack }: { onContinue: () => void; onBa
             Conectar reloj (opcional)
           </p>
           <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] leading-[17px] text-[#8a8a8a] mb-[16px]">
-            Sincroniza fácilmente todas las actividades registradas con tu reloj con Decathlon First run.
+            Sincroniza fácilmente todas las actividades registradas con tu reloj con Decathlon Rookie.
           </p>
           <PressableButton className="flex items-center justify-center gap-[8px] rounded-[6px] border border-[#d9d9d9] h-[44px] px-[20px]">
             <span className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[14px] text-[#2c2c2c]">Agregar reloj deportivo</span>

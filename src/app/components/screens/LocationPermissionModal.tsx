@@ -38,10 +38,10 @@ export function LocationPermissionModal({
         >
           <div className="shrink-0 px-[16px] pt-[18px] pb-[14px] text-center">
             <p className="font-['Host_Grotesk:SemiBold',sans-serif] font-semibold text-[17px] leading-[22px] tracking-[-0.41px] text-black">
-              ¿Permitir "Decathlon First run" use tu ubicación?
+              ¿Permitir "Decathlon Rookie" use tu ubicación?
             </p>
             <p className="font-['Host_Grotesk:Regular',sans-serif] font-normal text-[13px] leading-[17px] text-[#6a6a6a] mt-[8px]">
-              Para registrar tus carreras, es necesario que Decathlon First run use tu ubicación.
+              Para registrar tus carreras, es necesario que Decathlon Rookie use tu ubicación.
             </p>
           </div>
 
